@@ -3,6 +3,7 @@ import { rs3_data_array } from '../Data'
 import { useLocation } from 'react-router-dom'
 import RS3Skills from './tables/RS3Skills'
 import RS3Minigames from './tables/RS3Minigames'
+import RS3User from './tables/RS3User'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -50,7 +51,7 @@ const RS3 = () => {
 			.catch()
 			.finally(() => updateLoading(false))
 		fetch(
-			`https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
@@ -85,7 +86,9 @@ const RS3 = () => {
 					<Grid item xs={12} sm={4}>
 						<RS3Skills data={skillData} />
 					</Grid>
-					<Grid item xs={12} sm={4}></Grid>
+					<Grid item xs={12} sm={4}>
+						<RS3User name={player_name} />
+					</Grid>
 					<Grid item xs={12} sm={4}>
 						<RS3Minigames data={minigameData} />
 					</Grid>

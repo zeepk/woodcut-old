@@ -1,5 +1,5 @@
 import React from 'react'
-import { rs3_data_array, calcVirtualLevel, skillIcon } from '../../Data'
+import { calcVirtualLevel, skillIcon } from '../../Data'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -9,26 +9,6 @@ import TableRow from '@material-ui/core/TableRow'
 
 const RS3Skills = (props) => {
 	const skillData = props.data
-	// .then(function(info) {
-	//     return fetch(
-	//         proxyurl +
-	//             'https://apps.runescape.com/runemetrics/profile/profile?user=' +
-	//             player_name +
-	//             '&activities=20'
-	//     );
-	// })
-	// .then(res => res.json())
-	// // .then(res => this.setState({log: res}))
-	// .then(
-	//     result => {
-	//         this.setState({ log: result });
-	//     },
-
-	//     error => {
-	//         console.log('profile private');
-	//     }
-	// );
-
 	return (
 		<div>
 			<TableContainer style={{ color: 'white' }}>

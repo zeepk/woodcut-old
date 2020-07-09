@@ -17,13 +17,13 @@ const CustomNavbar = () => {
 			<Navbar.Brand href="/rs3">Woodcut</Navbar.Brand>
 			<Nav className="mr-auto">
 				<Nav.Link href="/rs3">Runescape 3</Nav.Link>
-				<Nav.Link href="/osrs">Old School Runescape</Nav.Link>
-				<Nav.Link href="#about">About</Nav.Link>
+				{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
+				<Nav.Link href="#about">About</Nav.Link> */}
 			</Nav>
 			<Form inline onSubmit={(e) => handleSubmit(e)}>
 				<FormControl
 					type="text"
-					placeholder="Search"
+					placeholder="Search for a player"
 					className="mr-sm-2"
 					onChange={(e) => updateName(e.target.value)}
 				/>
