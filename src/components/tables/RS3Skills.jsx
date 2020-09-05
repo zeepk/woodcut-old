@@ -1,50 +1,59 @@
-import React from 'react'
-import { calcVirtualLevel, skillIcon } from '../../Data'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import React from 'react';
+import { calcVirtualLevel, skillIcon } from '../../Data';
 
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 const RS3Skills = (props) => {
-	const skillData = props.data
+	const skillData = props.data;
+	// console.table(skillData);
 	return (
 		<div>
-			<TableContainer style={{ color: 'white' }}>
-				<Table aria-label="simple table">
-					<TableHead>
-						<TableRow>
-							<TableCell>Skill</TableCell>
-							<TableCell align="right">Rank</TableCell>
-							<TableCell align="right">Level</TableCell>
-							<TableCell align="right">XP</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{skillData.map((row) => (
-							<TableRow key={row.name}>
-								<TableCell component="th" scope="row">
-									{skillIcon(row.id)} {` ${row.name}`}
-								</TableCell>
-								<TableCell align="right">
-									{row.rank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</TableCell>
-								<TableCell align="right">
-									{calcVirtualLevel(row)
-										.toString()
-										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</TableCell>
-								<TableCell align="right">
-									{row.xp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+			<DataTable value={skillData}>
+				<Column
+					field="code"
+					header="Skill"
+					body={(rowData) => (
+						<div style={{ textAlign: 'left', width: '200px' }}>
+							{skillIcon(rowData.id)}
+							{` ${rowData.name}`}
+						</div>
+					)}
+				></Column>
+				<Column
+					style={{ textAlign: 'right' }}
+					field="rank"
+					header="Rank"
+					body={(rowData) => (
+						<div>
+							{rowData.rank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+				<Column
+					style={{ textAlign: 'right' }}
+					field="level"
+					header="Level"
+					body={(rowData) => (
+						<div>
+							{calcVirtualLevel(rowData)
+								.toString()
+								.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+				<Column
+					style={{ textAlign: 'right' }}
+					field="xp"
+					header="XP"
+					body={(rowData) => (
+						<div>
+							{rowData.xp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+			</DataTable>
 		</div>
-	)
-}
+	);
+};
 
-export default RS3Skills
+export default RS3Skills;
