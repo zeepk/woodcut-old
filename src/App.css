@@ -16,9 +16,15 @@
 th,
 .p-datatable-row {
 	background-color: transparent !important;
+	border-top: none !important;
+	border-left: none !important;
+	border-right: none !important;
 	border-bottom: 1px solid rgba(224, 224, 224, 0.2) !important;
 }
-
 td {
 	border: none !important;
+}
+.p-md-4,
+.p-md-8 {
+	padding: 0 !important;
 }

@@ -1,34 +1,34 @@
-import React from 'react'
+import React from 'react';
 
-import Overall from './images/1_overall.png'
-import Attack from './images/2_attack.png'
-import Defence from './images/3_defence.png'
-import Strength from './images/4_strength.png'
-import Constitution from './images/5_constitution.png'
-import Ranged from './images/6_ranged.png'
-import Prayer from './images/7_prayer.png'
-import Magic from './images/8_magic.png'
-import Cooking from './images/9_cooking.png'
-import Woodcutting from './images/10_woodcutting.png'
-import Fletching from './images/11_fletching.png'
-import Fishing from './images/12_fishing.png'
-import Firemaking from './images/13_firemaking.png'
-import Crafting from './images/14_crafting.png'
-import Smithing from './images/15_smithing.png'
-import Mining from './images/16_mining.png'
-import Herblore from './images/17_herblore.png'
-import Agility from './images/18_agility.png'
-import Thieving from './images/19_thieving.png'
-import Slayer from './images/20_slayer.png'
-import Farming from './images/21_farming.png'
-import Runecrafting from './images/22_runecrafting.png'
-import Hunter from './images/23_hunter.png'
-import Construction from './images/24_construction.png'
-import Summoning from './images/25_summoning.png'
-import Dungeoneering from './images/26_dungeoneering.png'
-import Divination from './images/27_divination.png'
-import Invention from './images/28_invention.png'
-import Archaeology from './images/29_archaeology.png'
+import Overall from './images/1_overall.png';
+import Attack from './images/2_attack.png';
+import Defence from './images/3_defence.png';
+import Strength from './images/4_strength.png';
+import Constitution from './images/5_constitution.png';
+import Ranged from './images/6_ranged.png';
+import Prayer from './images/7_prayer.png';
+import Magic from './images/8_magic.png';
+import Cooking from './images/9_cooking.png';
+import Woodcutting from './images/10_woodcutting.png';
+import Fletching from './images/11_fletching.png';
+import Fishing from './images/12_fishing.png';
+import Firemaking from './images/13_firemaking.png';
+import Crafting from './images/14_crafting.png';
+import Smithing from './images/15_smithing.png';
+import Mining from './images/16_mining.png';
+import Herblore from './images/17_herblore.png';
+import Agility from './images/18_agility.png';
+import Thieving from './images/19_thieving.png';
+import Slayer from './images/20_slayer.png';
+import Farming from './images/21_farming.png';
+import Runecrafting from './images/22_runecrafting.png';
+import Hunter from './images/23_hunter.png';
+import Construction from './images/24_construction.png';
+import Summoning from './images/25_summoning.png';
+import Dungeoneering from './images/26_dungeoneering.png';
+import Divination from './images/27_divination.png';
+import Invention from './images/28_invention.png';
+import Archaeology from './images/29_archaeology.png';
 
 const img_array = [
 	Overall,
@@ -60,62 +60,62 @@ const img_array = [
 	Divination,
 	Invention,
 	Archaeology,
-]
+];
 
 export const skillIcon = (id) => {
-	return <img style={{ width: '25px' }} src={img_array[id]} />
-}
+	return <img style={{ width: '25px' }} src={img_array[id]} alt="skill icon" />;
+};
 
 export const calcVirtualLevel = (rowData) => {
 	if (rowData.xp < 14391160 || rowData.name === 'Overall') {
-		return rowData.level
+		return rowData.level;
 	} else if (rowData.xp >= 104273167) {
-		return 120
+		return 120;
 	} else if (rowData.xp >= 94442737) {
-		return 119
+		return 119;
 	} else if (rowData.xp >= 85539082) {
-		return 118
+		return 118;
 	} else if (rowData.xp >= 77474828) {
-		return 117
+		return 117;
 	} else if (rowData.xp >= 70170840) {
-		return 116
+		return 116;
 	} else if (rowData.xp >= 63555443) {
-		return 115
+		return 115;
 	} else if (rowData.xp >= 57563718) {
-		return 114
+		return 114;
 	} else if (rowData.xp >= 52136869) {
-		return 113
+		return 113;
 	} else if (rowData.xp >= 47221641) {
-		return 112
+		return 112;
 	} else if (rowData.xp >= 42769801) {
-		return 111
+		return 111;
 	} else if (rowData.xp >= 38737661) {
-		return 110
+		return 110;
 	} else if (rowData.xp >= 35085654) {
-		return 109
+		return 109;
 	} else if (rowData.xp >= 31777943) {
-		return 108
+		return 108;
 	} else if (rowData.xp >= 28782069) {
-		return 107
+		return 107;
 	} else if (rowData.xp >= 26068632) {
-		return 106
+		return 106;
 	} else if (rowData.xp >= 23611006) {
-		return 105
+		return 105;
 	} else if (rowData.xp >= 21385073) {
-		return 104
+		return 104;
 	} else if (rowData.xp >= 19368992) {
-		return 103
+		return 103;
 	} else if (rowData.xp >= 17542976) {
-		return 102
+		return 102;
 	} else if (rowData.xp >= 15889109) {
-		return 101
+		return 101;
 	} else if (rowData.xp >= 14391160) {
-		return 100
+		return 100;
 	} else {
-		console.log('Error calculating virtual level.')
-		return 0
+		console.log('Error calculating virtual level.');
+		return 0;
 	}
-}
+};
 
 export const rs3_data_array = [
 	'Overall',
@@ -177,4 +177,4 @@ export const rs3_data_array = [
 	'Clue Scrolls Hard',
 	'Clue Scrolls Elite',
 	'Clue Scrolls Master',
-]
+];

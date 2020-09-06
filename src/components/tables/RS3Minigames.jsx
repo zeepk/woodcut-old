@@ -1,44 +1,39 @@
-import React from 'react'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import React from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 const RS3Minigames = (props) => {
-	const minigameData = props.data
+	const minigameData = props.data;
 
 	return (
 		<div>
-			<TableContainer style={{ color: 'white' }}>
-				<Table aria-label="simple table">
-					<TableHead>
-						<TableRow>
-							<TableCell>Minigame</TableCell>
-							<TableCell align="right">Rank</TableCell>
-							<TableCell align="right">Score</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{minigameData.map((row) => (
-							<TableRow key={row.name}>
-								<TableCell component="th" scope="row">
-									{row.name}
-								</TableCell>
-								<TableCell align="right">
-									{row.rank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</TableCell>
-								<TableCell align="right">
-									{row.score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+			<DataTable value={minigameData}>
+				<Column
+					style={{ textAlign: 'left', width: '200px' }}
+					field="name"
+					header="Minigame"
+				></Column>
+				<Column
+					field="rank"
+					header="Rank"
+					body={(rowData) => (
+						<div style={{ textAlign: 'left', width: '200px' }}>
+							{rowData.rank.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+				<Column
+					field="score"
+					header="Score"
+					body={(rowData) => (
+						<div style={{ textAlign: 'left', width: '200px' }}>
+							{rowData.score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+			</DataTable>
 		</div>
-	)
-}
+	);
+};
 
-export default RS3Minigames
+export default RS3Minigames;

@@ -85,11 +85,12 @@ const RS3 = () => {
 	} else {
 		return (
 			<div>
-				<div className="p-grid" style={{ margin: 0 }}>
+				<div className="p-grid" style={{ margin: 0, padding: '10px' }}>
 					<div className="p-col-12 p-md-8">
 						<RS3Skills data={skillData} />
 					</div>
-					<div className="p-col-12 p-md-4">
+					<div className="p-col-12 p-md-1" />
+					<div className="p-col-12 p-md-3">
 						<RS3Minigames data={minigameData} />
 					</div>
 				</div>

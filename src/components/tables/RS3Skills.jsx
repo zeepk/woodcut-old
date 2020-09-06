@@ -5,7 +5,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 const RS3Skills = (props) => {
 	const skillData = props.data;
-	// console.table(skillData);
 	return (
 		<div>
 			<DataTable value={skillData}>
@@ -48,6 +47,31 @@ const RS3Skills = (props) => {
 					body={(rowData) => (
 						<div>
 							{rowData.xp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+						</div>
+					)}
+				></Column>
+				<Column
+					style={{ textAlign: 'right' }}
+					field="xp"
+					header="Day Gain"
+					body={(rowData) => (
+						<div style={{ color: '#1abd1a' }}>
+							{`
+						+${Math.floor(Math.random() * 100000)
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+						</div>
+					)}
+				></Column>
+				<Column
+					style={{ textAlign: 'right' }}
+					field="xp"
+					header="Week Gain"
+					body={(rowData) => (
+						<div style={{ color: '#b5b557' }}>
+							{Math.floor(Math.random() * 100000)
+								.toString()
+								.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 						</div>
 					)}
 				></Column>
