@@ -9,9 +9,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const RS3 = () => {
 	const [skillData, updateSkillData] = useState([]);
 	const [minigameData, updateMinigameData] = useState([]);
-	const [userData, updateUserData] = useState([]);
+	const [avatarLoading, updateAvatarLoading] = useState(true);
 	const [loading, updateLoading] = useState(true);
-	// console.log("running fetch");
 	const proxyurl = 'https://api.allorigins.win/get?url=';
 	const player_name = useLocation().search.substr(1) || 'zee pk';
 	const organizeData = (data_array) => {
@@ -85,12 +84,41 @@ const RS3 = () => {
 	} else {
 		return (
 			<div>
-				<div className="p-grid" style={{ margin: 0, padding: '10px' }}>
+				<div
+					className="p-grid"
+					style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
+				>
 					<div className="p-col-12 p-md-8">
 						<RS3Skills data={skillData} />
 					</div>
 					<div className="p-col-12 p-md-1" />
 					<div className="p-col-12 p-md-3">
+						<div className="p-grid" style={{ margin: 0 }}>
+							<div className="p-col-4">
+								<img
+									src={`http://secure.runescape.com/m=avatar-rs/${player_name}/chat.png`}
+									alt={'nice'}
+									onLoad={() => updateAvatarLoading(false)}
+								/>
+								{avatarLoading ? (
+									<CircularProgress size={'80px'} color="secondary" />
+								) : (
+									<div />
+								)}
+							</div>
+							<div className="p-col-8">
+								<h1
+									style={{
+										color: 'white',
+										marginTop: '20px',
+										textAlign: 'left',
+									}}
+								>
+									{player_name}
+								</h1>
+							</div>
+						</div>
+						;
 						<RS3Minigames data={minigameData} />
 					</div>
 				</div>
