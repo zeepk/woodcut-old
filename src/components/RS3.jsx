@@ -79,8 +79,6 @@ const RS3 = () => {
 			</div>
 		);
 	} else {
-		console.table(skillData);
-		console.table(minigameData);
 		return (
 			<div>
 				<div
