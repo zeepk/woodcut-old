@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { rs3_data_array } from '../Data';
 import { useLocation } from 'react-router-dom';
 import RS3Skills from './tables/RS3Skills';
+import RS3Activities from './tables/RS3Activities';
 import RS3Minigames from './tables/RS3Minigames';
 import RuneScoreLogo from '../images/RuneScore.png';
 import SkillLogo from '../images/1_overall.png';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { TabView, TabPanel } from 'primereact/tabview';
 
 const RS3 = () => {
+	// var jsonp = require('jsonp');
 	const [skillData, updateSkillData] = useState([]);
+	const [activityData, updateActivityData] = useState([]);
 	const [minigameData, updateMinigameData] = useState([]);
 	const [avatarLoading, updateAvatarLoading] = useState(true);
 	const [loading, updateLoading] = useState(true);
@@ -50,13 +53,13 @@ const RS3 = () => {
 			.catch()
 			.finally(() => updateLoading(false));
 		fetch(
-			`https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
 			.then(
 				(res) => {
-					console.log(JSON.parse(res.contents));
+					updateActivityData(JSON.parse(res.contents));
 				},
 
 				(error) => {
@@ -147,7 +150,14 @@ const RS3 = () => {
 							</div>
 						</div>
 						;
-						<RS3Minigames data={minigameData} />
+						<TabView>
+							<TabPanel header="Activities">
+								<RS3Activities data={activityData} />
+							</TabPanel>
+							<TabPanel header="Minigames">
+								<RS3Minigames data={minigameData} />
+							</TabPanel>
+						</TabView>
 					</div>
 					<div className="p-col-12 p-md-1" />
 					<div className="p-col-12 p-md-8">
