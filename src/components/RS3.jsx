@@ -3,6 +3,8 @@ import { rs3_data_array } from '../Data';
 import { useLocation } from 'react-router-dom';
 import RS3Skills from './tables/RS3Skills';
 import RS3Minigames from './tables/RS3Minigames';
+import RuneScoreLogo from '../images/RuneScore.png';
+import SkillLogo from '../images/1_overall.png';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -48,7 +50,7 @@ const RS3 = () => {
 			.catch()
 			.finally(() => updateLoading(false));
 		fetch(
-			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
@@ -62,11 +64,6 @@ const RS3 = () => {
 				}
 			);
 	}, []);
-	if (skillData.length > 0) {
-		console.table(skillData);
-	} else {
-		console.log('No skill data yet...');
-	}
 	if (loading) {
 		return (
 			<div style={{ height: '100vh' }}>
@@ -82,16 +79,14 @@ const RS3 = () => {
 			</div>
 		);
 	} else {
+		console.table(skillData);
+		console.table(minigameData);
 		return (
 			<div>
 				<div
 					className="p-grid"
 					style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
 				>
-					<div className="p-col-12 p-md-8">
-						<RS3Skills data={skillData} />
-					</div>
-					<div className="p-col-12 p-md-1" />
 					<div className="p-col-12 p-md-3">
 						<div className="p-grid" style={{ margin: 0 }}>
 							<div className="p-col-4">
@@ -110,16 +105,55 @@ const RS3 = () => {
 								<h1
 									style={{
 										color: 'white',
-										marginTop: '20px',
 										textAlign: 'left',
 									}}
 								>
 									{player_name}
 								</h1>
+								<div style={{ textAlign: 'left' }}>
+									<img
+										src={RuneScoreLogo}
+										alt="runescore"
+										style={{ display: 'inline' }}
+									/>
+									<p
+										style={{
+											color: 'white',
+											display: 'inline',
+											margin: '0 0 0 5px',
+										}}
+									>
+										{minigameData[24].score
+											.toString()
+											.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									</p>
+								</div>
+								<div style={{ textAlign: 'left', margin: '5px 0 0 0' }}>
+									<img
+										src={SkillLogo}
+										alt="overall xp"
+										style={{ display: 'inline', height: '20px' }}
+									/>
+									<p
+										style={{
+											color: 'white',
+											display: 'inline',
+											margin: '0 0 0 5px',
+										}}
+									>
+										{skillData[0].xp
+											.toString()
+											.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+									</p>
+								</div>
 							</div>
 						</div>
 						;
 						<RS3Minigames data={minigameData} />
+					</div>
+					<div className="p-col-12 p-md-1" />
+					<div className="p-col-12 p-md-8">
+						<RS3Skills data={skillData} />
 					</div>
 				</div>
 			</div>
