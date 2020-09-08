@@ -8,16 +8,19 @@ import RuneScoreLogo from '../images/RuneScore.png';
 import SkillLogo from '../images/1_overall.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TabView, TabPanel } from 'primereact/tabview';
+const axios = require('axios');
 
 const RS3 = () => {
 	// var jsonp = require('jsonp');
 	const [skillData, updateSkillData] = useState([]);
+	const [skillHistory, updateSkillHistory] = useState({});
 	const [activityData, updateActivityData] = useState([]);
 	const [minigameData, updateMinigameData] = useState([]);
 	const [avatarLoading, updateAvatarLoading] = useState(true);
 	const [loading, updateLoading] = useState(true);
 	const proxyurl = 'https://api.allorigins.win/get?url=';
-	const player_name = useLocation().search.substr(1) || 'zee pk';
+	const player_name =
+		useLocation().search.substr(1).split('%20').join(' ') || 'zee pk';
 	const organizeData = (data_array) => {
 		const skill_data = [];
 		const minigame_data = [];
@@ -29,6 +32,7 @@ const RS3 = () => {
 				rank: separatedArray[0],
 				level: separatedArray[1],
 				xp: separatedArray[2],
+				delta: 0,
 			});
 		}
 		for (i = 29; i < 59; i++) {
@@ -37,12 +41,42 @@ const RS3 = () => {
 				name: rs3_data_array[i],
 				rank: separatedArray[0],
 				score: separatedArray[1],
+				delta: 0,
 			});
 		}
 		updateSkillData(skill_data);
 		updateMinigameData(minigame_data);
 	};
+	const integrateDeltas = () => {
+		for (var i = 0; i < 29; i++) {
+			// console.log(skillData[i]);
+			skillData[i].delta = skillHistory.statRecords[0].stats[i][3];
+		}
+		for (i = 29; i < 59; i++) {
+			// console.log(minigameData[i]);
+		}
+	};
+	if (
+		skillData.length > 0 &&
+		minigameData.length > 0 &&
+		skillHistory.statRecords !== undefined
+	) {
+		console.log(skillHistory.statRecords);
+		integrateDeltas();
+	}
+	// integrateDeltas();
 	useEffect(() => {
+		const username = player_name.split(' ').join('+').split('%20').join('+');
+		axios({
+			method: 'put',
+			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
+			data: {
+				username: username,
+			},
+		}).then((response) => {
+			console.log(response.data);
+			updateSkillHistory(response.data);
+		});
 		fetch(
 			`${proxyurl}https://secure.runescape.com/m=hiscore/index_lite.ws?player=${player_name}`
 		)

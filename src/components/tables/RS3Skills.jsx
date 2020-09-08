@@ -52,18 +52,16 @@ const RS3Skills = (props) => {
 				></Column>
 				<Column
 					style={{ textAlign: 'right' }}
-					field="xp"
+					field="delta"
 					header="Day Gain"
 					body={(rowData) => (
 						<div style={{ color: '#1abd1a' }}>
 							{`
-						+${Math.floor(Math.random() * 100000)
-							.toString()
-							.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+						+${rowData.delta}`}
 						</div>
 					)}
 				></Column>
-				<Column
+				{/* <Column
 					style={{ textAlign: 'right' }}
 					field="xp"
 					header="Week Gain"
@@ -74,7 +72,7 @@ const RS3Skills = (props) => {
 								.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
 						</div>
 					)}
-				></Column>
+				></Column> */}
 			</DataTable>
 		</div>
 	);
