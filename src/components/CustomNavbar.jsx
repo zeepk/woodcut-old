@@ -16,7 +16,12 @@ const CustomNavbar = () => {
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Navbar.Brand href="/rs3">
-				<img src={Logo} alt="Woodcut" style={{ height: '40px' }} />
+				<img
+					src={Logo}
+					alt="Woodcut"
+					style={{ height: '40px', margin: '-10px 10px 0 0' }}
+				/>
+				Woodcut
 			</Navbar.Brand>
 			<Nav className="mr-auto">
 				<Nav.Link href="/rs3">Runescape 3</Nav.Link>
@@ -29,6 +34,7 @@ const CustomNavbar = () => {
 					placeholder="Search for a player"
 					className="mr-sm-2"
 					onChange={(e) => updateName(e.target.value)}
+					style={{ fontFamily: 'RuneScape UF', fontSize: '20px' }}
 				/>
 				<Button variant="outline-info" type="submit">
 					Search

@@ -1,3 +1,11 @@
+@font-face {
+	font-family: 'RuneScape UF';
+	src: url('../src/font/RuneScape-UF.woff2') format('woff2'),
+		url('../src/font/RuneScape-UF.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
 :root {
 	--font: white;
 	--background: #212121;

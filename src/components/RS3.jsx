@@ -140,6 +140,8 @@ const RS3 = () => {
 									style={{
 										color: 'white',
 										textAlign: 'left',
+										fontFamily: 'RuneScape UF',
+										// fontSize: '20px',
 									}}
 								>
 									{player_name}
