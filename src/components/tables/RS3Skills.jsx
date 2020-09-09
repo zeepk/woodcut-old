@@ -57,7 +57,7 @@ const RS3Skills = (props) => {
 					body={(rowData) => (
 						<div style={{ color: '#1abd1a' }}>
 							{`
-						+${rowData.delta}`}
+						+${rowData.delta.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 						</div>
 					)}
 				></Column>
