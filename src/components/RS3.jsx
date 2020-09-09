@@ -123,7 +123,7 @@ const RS3 = () => {
 					style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
 				>
 					<div className="p-col-12 p-md-3">
-						<div className="p-grid" style={{ margin: 0 }}>
+						<div className="p-grid user-data" style={{ margin: '0 0 30px 0' }}>
 							<div className="p-col-4">
 								<img
 									src={`http://secure.runescape.com/m=avatar-rs/${player_name}/chat.png`}

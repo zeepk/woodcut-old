@@ -55,7 +55,9 @@ const RS3Skills = (props) => {
 					field="delta"
 					header="Day Gain"
 					body={(rowData) => (
-						<div style={{ color: '#1abd1a' }}>
+						<div
+							style={{ color: `${rowData.delta > 0 ? '#1abd1a' : 'silver'}` }}
+						>
 							{`
 						+${rowData.delta.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 						</div>
