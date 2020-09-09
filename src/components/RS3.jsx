@@ -11,7 +11,6 @@ import { TabView, TabPanel } from 'primereact/tabview';
 const axios = require('axios');
 
 const RS3 = () => {
-	// var jsonp = require('jsonp');
 	const [skillData, updateSkillData] = useState([]);
 	const [skillHistory, updateSkillHistory] = useState({});
 	const [activityData, updateActivityData] = useState([]);
@@ -183,7 +182,6 @@ const RS3 = () => {
 								</div>
 							</div>
 						</div>
-						;
 						<TabView>
 							<TabPanel header="Activities">
 								<RS3Activities data={activityData} />
