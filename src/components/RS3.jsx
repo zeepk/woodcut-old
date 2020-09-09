@@ -19,7 +19,8 @@ const RS3 = () => {
 	const [loading, updateLoading] = useState(true);
 	const proxyurl = 'https://api.allorigins.win/get?url=';
 	const player_name =
-		useLocation().search.substr(1).split('%20').join(' ') || 'zee pk';
+		useLocation().search.substr(1).split('%20').join(' ').toLowerCase() ||
+		'zee pk';
 	const organizeData = (data_array) => {
 		const skill_data = [];
 		const minigame_data = [];
