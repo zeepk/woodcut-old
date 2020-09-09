@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
+import React, { useState } from 'react';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
+import Logo from '../images/woodcutLogo.png';
 const CustomNavbar = () => {
-	const [name, updateName] = useState([])
+	const [name, updateName] = useState([]);
 
 	const handleSubmit = (e) => {
-		e.preventDefault()
-		console.log(name)
-		window.location.href = `/rs3/?${name}`
-	}
+		e.preventDefault();
+		console.log(name);
+		window.location.href = `/rs3/?${name}`;
+	};
 	return (
 		<Navbar bg="dark" variant="dark">
-			<Navbar.Brand href="/rs3">Woodcut</Navbar.Brand>
+			<Navbar.Brand href="/rs3">
+				<img src={Logo} alt="Woodcut" style={{ height: '40px' }} />
+			</Navbar.Brand>
 			<Nav className="mr-auto">
 				<Nav.Link href="/rs3">Runescape 3</Nav.Link>
 				{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
@@ -32,7 +35,7 @@ const CustomNavbar = () => {
 				</Button>
 			</Form>
 		</Navbar>
-	)
-}
+	);
+};
 
-export default CustomNavbar
+export default CustomNavbar;
