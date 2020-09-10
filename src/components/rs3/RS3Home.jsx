@@ -18,10 +18,13 @@ const RS3Home = () => {
 	}, []);
 
 	return (
-		<div style={{ height: '95vh', backgroundColor: '#212121' }}>
+		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
 			<div className="p-grid" style={{ margin: 0 }}>
-				<div className="p-col-12 p-md-6 p-lg-3" style={{ color: 'white' }}>
-					<h1>Daily Top 10</h1>
+				<div
+					className="p-col-12"
+					style={{ color: 'white', margin: '0 auto', width: '400px' }}
+				>
+					<h1>Top Gains</h1>
 					{topTenLoading ? (
 						<div style={{ height: '100vh' }}>
 							<CircularProgress
@@ -33,35 +36,38 @@ const RS3Home = () => {
 							/>
 						</div>
 					) : (
-						<DataTable value={topTenData}>
-							<Column
-								header=""
-								body={(rowData) => {
-									return (
-										<div style={{ height: '50px' }}>
-											<img
-												src={`http://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
-												alt={'avatar'}
-												style={{ maxHeight: '50px' }}
-											/>
-										</div>
-									);
-								}}
-								style={{ textAlign: 'left' }}
-							/>
+						<DataTable
+							value={topTenData}
+							style={{ border: '2px solid silver', borderRadius: '10px' }}
+						>
 							<Column
 								header="Player"
 								body={(rowData) => {
-									return <div>{rowData.rsn.split('+').join(' ')}</div>;
+									return (
+										<a
+											href={`/rs3/?${rowData.username}`}
+											style={{ color: 'white' }}
+										>
+											<span style={{ height: '50px' }}>
+												<img
+													src={`http://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
+													alt={'avatar'}
+													style={{ maxHeight: '50px' }}
+												/>
+												{rowData.rsn.split('+').join(' ')}
+											</span>
+										</a>
+									);
 								}}
-								style={{ textAlign: 'left' }}
+								style={{ textAlign: 'left', height: '80px' }}
 							/>
+
 							<Column
 								header="Day Gain"
-								style={{ textAlign: 'right', color: '#1abd1a' }}
+								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
-										<div>
+										<div style={{ color: '#1abd1a' }}>
 											{'+' +
 												rowData.xpgain
 													.toString()
