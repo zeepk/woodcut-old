@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { rs3_data_array } from '../Data';
 import { useLocation } from 'react-router-dom';
-import RS3Skills from './tables/RS3Skills';
-import RS3Activities from './tables/RS3Activities';
-import RS3Minigames from './tables/RS3Minigames';
+import RS3Skills from './rs3/RS3Skills';
+import RS3Activities from './rs3/RS3Activities';
+import RS3Minigames from './rs3/RS3Minigames';
+import RS3User from './rs3/RS3User';
+import RS3Home from './rs3/RS3Home';
 import RuneScoreLogo from '../images/RuneScore.png';
 import SkillLogo from '../images/1_overall.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -66,6 +68,10 @@ const RS3 = () => {
 	}
 	// integrateDeltas();
 	useEffect(() => {
+		if (player_name === '') {
+			updateLoading(false);
+			return;
+		}
 		const username = player_name.split(' ').join('+').split('%20').join('+');
 		axios({
 			method: 'put',
@@ -120,7 +126,9 @@ const RS3 = () => {
 			</div>
 		);
 	} else {
-		if (isError) {
+		if (player_name === '') {
+			return <RS3Home />;
+		} else if (isError) {
 			return (
 				<div style={{ height: '95vh', padding: '20px 0 0 0', color: 'white' }}>
 					<h1>{`Unable to find ${player_name} on the RuneScape Hiscores...`}</h1>
@@ -205,6 +213,9 @@ const RS3 = () => {
 								</TabPanel>
 								<TabPanel header="Minigames">
 									<RS3Minigames data={minigameData} />
+								</TabPanel>
+								<TabPanel header="User Info">
+									<RS3User data={skillData} />
 								</TabPanel>
 							</TabView>
 						</div>
