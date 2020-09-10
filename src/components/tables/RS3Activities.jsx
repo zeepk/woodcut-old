@@ -8,7 +8,6 @@ const RS3Activities = (props) => {
 			{ text: 'Profile Private', details: 'No activity data available' },
 		];
 	}
-	console.log(activityData);
 	return (
 		<div>
 			<DataTable value={activityData['activities']}>
