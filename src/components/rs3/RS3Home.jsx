@@ -7,7 +7,7 @@ const RS3Home = () => {
 	const [topTenData, updateTopTenData] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
 	useEffect(() => {
-		fetch(`http://localhost:8000/users/topten`)
+		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
 				console.log(res);
