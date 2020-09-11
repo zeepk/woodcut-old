@@ -68,7 +68,6 @@ const RS3 = () => {
 			minigameData[i - 29].delta = skillHistory.statRecords[0].stats[i][2];
 			// minigameData[i - 29].delta = 8;
 		}
-		console.log(minigameData);
 	};
 	if (
 		skillData.length > 0 &&
@@ -114,8 +113,9 @@ const RS3 = () => {
 						res.contents
 							.split('\n')
 							.slice(1, 29)
-							.find((skill) => +skill.split(',')[1] < 99) === null;
-					updatedBadges.maxTotal = res.contents.split('\n')[0][1] === 2898;
+							.find((skill) => +skill.split(',')[1] < 99) === undefined;
+					updatedBadges.maxTotal =
+						res.contents.split('\n')[0].split(',')[1] === '2898';
 					organizeData(res.contents.split('\n'));
 				}
 			})
@@ -134,16 +134,10 @@ const RS3 = () => {
 					updateActivityData(JSON.parse(res.contents));
 				}
 			});
-		const detailsAPICall = fetch(
-			`${proxyurl}https://secure.runescape.com/m=website-data/playerDetails.ws?names=["zee pk"]&callback=jQuery000000000000000_0000000000&_=0`
-		).then((res) => console.log(res));
 
-		Promise.all([
-			gainsAPICall,
-			statsAPICall,
-			activitiesAPICall,
-			detailsAPICall,
-		]).then(() => {
+		Promise.all([gainsAPICall, statsAPICall, activitiesAPICall]).then(() => {
+			console.log(updatedBadges);
+			updateBadges(updatedBadges);
 			updateLoading(false);
 		});
 	}, [player_name]);
@@ -179,6 +173,7 @@ const RS3 = () => {
 						style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
 					>
 						<div className="p-col-12 p-md-3">
+							{/* {details} */}
 							<RS3Avatar
 								player_name={player_name}
 								xp={skillData[0].xp}

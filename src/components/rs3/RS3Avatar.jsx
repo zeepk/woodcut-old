@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const RS3Avatar = (props) => {
 	const player_name = props.player_name;
 	const [avatarLoading, updateAvatarLoading] = useState(true);
-
+	console.log(props.badges);
 	return (
 		<div className="p-grid user-data" style={{ margin: '0 0 30px 0' }}>
 			<div className="p-col-4">
