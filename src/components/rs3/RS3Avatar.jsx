@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RuneScoreLogo from '../../images/RuneScore.png';
 import SkillLogo from '../../images/1_overall.png';
+import QuestIcon from '../../images/questIcon.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const RS3Avatar = (props) => {
 	const player_name = props.player_name;
@@ -64,6 +65,58 @@ const RS3Avatar = (props) => {
 					</p>
 				</div>
 			</div>
+			<span>
+				{props.badges.quests && (
+					<div
+						style={{
+							backgroundColor: '#377797',
+							color: 'white',
+							width: '120px',
+							height: '25px',
+							borderRadius: '10px',
+							textAlign: 'left',
+							fontSize: '15px',
+							margin: '10px 0',
+						}}
+					>
+						<img
+							src={QuestIcon}
+							alt="quest cape"
+							style={{
+								display: 'inline',
+								height: '17px',
+								margin: '0 5px 2px 5px',
+							}}
+						/>
+						Quest Cape
+					</div>
+				)}
+				{(props.badges.max || props.badges.maxTotal) && (
+					<div
+						style={{
+							backgroundColor: 'rgb(113, 41, 41)',
+							color: 'white',
+							width: '100px',
+							height: '25px',
+							borderRadius: '10px',
+							textAlign: 'left',
+							fontSize: '15px',
+							margin: '10px 0',
+						}}
+					>
+						<img
+							src={SkillLogo}
+							alt="maxed"
+							style={{
+								display: 'inline',
+								height: '17px',
+								margin: '0 5px 2px 5px',
+							}}
+						/>
+						{props.badges.maxTotal ? 'Max Total' : 'Maxed'}
+					</div>
+				)}
+			</span>
 		</div>
 	);
 };

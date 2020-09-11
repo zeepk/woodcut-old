@@ -13,6 +13,11 @@ const CustomNavbar = () => {
 		console.log(name);
 		window.location.href = `/rs3/?${name}`;
 	};
+
+	var now = new Date();
+	var then = new Date(now);
+	then.setUTCHours(30, 0, 0, 0);
+	const hours = (then - now) / 3600000;
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Navbar.Brand href="/rs3">
@@ -28,6 +33,9 @@ const CustomNavbar = () => {
 				{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
 				<Nav.Link href="#about">About</Nav.Link> */}
 			</Nav>
+			<div
+				style={{ color: 'white', margin: '0 10px 0 0', fontSize: '14px' }}
+			>{`Day ends in ${Math.floor(hours)} hrs at 6am UTC`}</div>
 			<Form inline onSubmit={(e) => handleSubmit(e)}>
 				<FormControl
 					type="text"
