@@ -5,9 +5,8 @@ import RS3Skills from './rs3/RS3Skills';
 import RS3Activities from './rs3/RS3Activities';
 import RS3Minigames from './rs3/RS3Minigames';
 import RS3User from './rs3/RS3User';
+import RS3Avatar from './rs3/RS3Avatar';
 import RS3Home from './rs3/RS3Home';
-import RuneScoreLogo from '../images/RuneScore.png';
-import SkillLogo from '../images/1_overall.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TabView, TabPanel } from 'primereact/tabview';
 const axios = require('axios');
@@ -17,9 +16,15 @@ const RS3 = () => {
 	const [skillHistory, updateSkillHistory] = useState({});
 	const [activityData, updateActivityData] = useState([]);
 	const [minigameData, updateMinigameData] = useState([]);
-	const [avatarLoading, updateAvatarLoading] = useState(true);
 	const [isError, updateError] = useState(false);
 	const [loading, updateLoading] = useState(true);
+	const [badges, updateBadges] = useState({
+		max: false,
+		maxTotal: false,
+		comp: false,
+		trim: false,
+		quests: false,
+	});
 	const proxyurl = 'https://api.allorigins.win/get?url=';
 	const player_name =
 		useLocation()
@@ -57,12 +62,13 @@ const RS3 = () => {
 	};
 	const integrateDeltas = () => {
 		for (var i = 0; i < 29; i++) {
-			// console.log(skillData[i]);
 			skillData[i].delta = skillHistory.statRecords[0].stats[i][3];
 		}
 		for (i = 29; i < 59; i++) {
-			// console.log(minigameData[i]);
+			minigameData[i - 29].delta = skillHistory.statRecords[0].stats[i][2];
+			// minigameData[i - 29].delta = 8;
 		}
+		console.log(minigameData);
 	};
 	if (
 		skillData.length > 0 &&
@@ -70,16 +76,21 @@ const RS3 = () => {
 		skillHistory.statRecords !== undefined
 	) {
 		integrateDeltas();
-		// updateLoading(false);
 	}
-	// integrateDeltas();
 	useEffect(() => {
+		const updatedBadges = {
+			max: false,
+			maxTotal: false,
+			comp: false,
+			trim: false,
+			quests: false,
+		};
 		if (player_name === '') {
 			updateLoading(false);
 			return;
 		}
 		const username = player_name.split(' ').join('+').split('%20').join('+');
-		axios({
+		const gainsAPICall = axios({
 			method: 'put',
 			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
 			data: {
@@ -89,9 +100,9 @@ const RS3 = () => {
 			.then((response) => {
 				updateSkillHistory(response.data);
 			})
-			.catch((err) => console.log(err))
-			.finally(() => updateLoading(false));
-		fetch(
+			.catch((err) => console.log(err));
+		// .finally();
+		const statsAPICall = fetch(
 			`${proxyurl}https://secure.runescape.com/m=hiscore/index_lite.ws?player=${player_name}`
 		)
 			.then((res) => res.json())
@@ -99,11 +110,17 @@ const RS3 = () => {
 				if (res.contents.includes('error')) {
 					updateError(true);
 				} else {
+					updatedBadges.max =
+						res.contents
+							.split('\n')
+							.slice(1, 29)
+							.find((skill) => +skill.split(',')[1] < 99) === null;
+					updatedBadges.maxTotal = res.contents.split('\n')[0][1] === 2898;
 					organizeData(res.contents.split('\n'));
 				}
 			})
-			.catch((err) => console.log('error in call'));
-		fetch(
+			.catch((err) => console.log(err));
+		const activitiesAPICall = fetch(
 			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
@@ -112,9 +129,23 @@ const RS3 = () => {
 				if (JSON.parse(res.contents).error === 'NO_PROFILE') {
 					updateError(true);
 				} else {
+					updatedBadges.quests =
+						JSON.parse(res.contents).questscomplete === 295;
 					updateActivityData(JSON.parse(res.contents));
 				}
 			});
+		const detailsAPICall = fetch(
+			`${proxyurl}https://secure.runescape.com/m=website-data/playerDetails.ws?names=["zee pk"]&callback=jQuery000000000000000_0000000000&_=0`
+		).then((res) => console.log(res));
+
+		Promise.all([
+			gainsAPICall,
+			statsAPICall,
+			activitiesAPICall,
+			detailsAPICall,
+		]).then(() => {
+			updateLoading(false);
+		});
 	}, [player_name]);
 
 	if (loading) {
@@ -148,86 +179,31 @@ const RS3 = () => {
 						style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
 					>
 						<div className="p-col-12 p-md-3">
-							<div
-								className="p-grid user-data"
-								style={{ margin: '0 0 30px 0' }}
-							>
-								<div className="p-col-4">
-									<img
-										src={`http://secure.runescape.com/m=avatar-rs/${player_name}/chat.png`}
-										alt={'nice'}
-										onLoad={() => updateAvatarLoading(false)}
-									/>
-									{avatarLoading ? (
-										<CircularProgress size={'80px'} color="secondary" />
-									) : (
-										<div />
-									)}
-								</div>
-								<div className="p-col-8">
-									<h1
-										style={{
-											color: 'white',
-											textAlign: 'left',
-											fontFamily: 'RuneScape UF',
-											// fontSize: '20px',
-										}}
-									>
-										{player_name}
-									</h1>
-									<div style={{ textAlign: 'left' }}>
-										<img
-											src={RuneScoreLogo}
-											alt="runescore"
-											style={{ display: 'inline' }}
-										/>
-										<p
-											style={{
-												color: 'white',
-												display: 'inline',
-												margin: '0 0 0 5px',
-											}}
-										>
-											{minigameData[24].score
-												.toString()
-												.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-										</p>
-									</div>
-									<div style={{ textAlign: 'left', margin: '5px 0 0 0' }}>
-										<img
-											src={SkillLogo}
-											alt="overall xp"
-											style={{ display: 'inline', height: '20px' }}
-										/>
-										<p
-											style={{
-												color: 'white',
-												display: 'inline',
-												margin: '0 0 0 5px',
-											}}
-										>
-											{skillData[0].xp
-												.toString()
-												.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-										</p>
-									</div>
-								</div>
-							</div>
+							<RS3Avatar
+								player_name={player_name}
+								xp={skillData[0].xp}
+								runescore={minigameData[24].score}
+								badges={badges}
+							/>
 							<TabView>
 								<TabPanel header="Activities">
 									<RS3Activities data={activityData} />
 								</TabPanel>
-								<TabPanel header="Minigames">
-									<RS3Minigames data={minigameData} />
-								</TabPanel>
 								<TabPanel header="User Info">
-									<RS3User data={skillData} />
+									<RS3User />
 								</TabPanel>
 							</TabView>
 						</div>
 						<div className="p-col-12 p-md-1" />
 						<div className="p-col-12 p-md-8">
-							<RS3Skills data={skillData} />
+							<TabView>
+								<TabPanel header="Stats">
+									<RS3Skills data={skillData} />
+								</TabPanel>
+								<TabPanel header="Minigames">
+									<RS3Minigames data={minigameData} />
+								</TabPanel>
+							</TabView>
 						</div>
 					</div>
 				</div>

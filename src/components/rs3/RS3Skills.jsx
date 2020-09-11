@@ -9,10 +9,11 @@ const RS3Skills = (props) => {
 		<div>
 			<DataTable value={skillData}>
 				<Column
+					style={{ textAlign: 'left' }}
 					field="code"
 					header="Skill"
 					body={(rowData) => (
-						<div style={{ textAlign: 'left', width: '200px' }}>
+						<div style={{ width: '200px' }}>
 							{skillIcon(rowData.id)}
 							{` ${rowData.name}`}
 						</div>

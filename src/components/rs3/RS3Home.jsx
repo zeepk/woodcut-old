@@ -10,7 +10,6 @@ const RS3Home = () => {
 		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
-				console.log(res);
 				updateTopTenData(res);
 				updateTopTenLoading(false);
 			})
