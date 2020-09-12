@@ -23,11 +23,11 @@ const RS3User = (props) => {
 	const percentage = calcSkillPercentage(selection, props.skills.slice(1, 29));
 	return (
 		<div>
-			<div className="p-grid" style={{ margin: 0 }}>
+			<div className="p-grid" style={{ margin: 0, fontSize: '1.25rem' }}>
 				<div className="p-col-12">
 					<Dropdown
 						style={{
-							width: '120px',
+							width: '150px',
 						}}
 						value={selection}
 						options={options}
@@ -36,13 +36,20 @@ const RS3User = (props) => {
 						}}
 					/>
 				</div>
-				<div className="p-col-12">{`${percentage.remainder
-					.toString()
-					.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} xp left!`}</div>
-				<div className="p-col-12">{`${percentage.percentage.toFixed(2)}%`}</div>
 				<div className="p-col-12">
+					<strong>
+						{`${percentage.remainder
+							.toString()
+							.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}{' '}
+					</strong>
+					xp left!
+				</div>
+				<div className="p-col-12" style={{ marginTop: '30px' }}>
+					<div style={{ marginBottom: '-65px' }}>
+						<strong>{`${percentage.percentage.toFixed(2)}%`}</strong>
+					</div>
 					<CircularProgress
-						size={'100px'}
+						size={'110px'}
 						variant="static"
 						value={percentage.percentage}
 					/>

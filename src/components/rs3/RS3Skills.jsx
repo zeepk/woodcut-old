@@ -18,11 +18,11 @@ const RS3Skills = (props) => {
 				style={{ minWidth: '500px' }}
 			>
 				<Column
-					style={{ textAlign: 'left' }}
+					style={{ textAlign: 'left', width: `${truncate ? '10px' : '200px'}` }}
 					field="code"
 					header="Skill"
 					body={(rowData) => (
-						<div style={{ width: `${truncate ? '10px' : '200px'}` }}>
+						<div>
 							{skillIcon(rowData.id)}
 							{truncate ? '' : ` ${rowData.name}`}
 						</div>

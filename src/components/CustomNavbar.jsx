@@ -36,7 +36,12 @@ const CustomNavbar = () => {
 				<Nav.Link href="#about">About</Nav.Link> */}
 				</Nav>
 				<div
-					style={{ color: 'white', margin: '0 10px 0 0', fontSize: '14px' }}
+					style={{
+						color: 'white',
+						margin: '0 10px 0 0',
+						fontSize: '14px',
+						textAlign: 'left',
+					}}
 				>{`Day ends in ${Math.floor(hours)} hrs ${Math.floor(
 					(hours - Math.floor(hours)) * 60
 				)} mins`}</div>

@@ -42,7 +42,6 @@ const RS3Avatar = (props) => {
 						color: 'white',
 						textAlign: 'left',
 						fontFamily: 'RuneScape UF',
-						// fontSize: '20px',
 					}}
 				>
 					{player_name}

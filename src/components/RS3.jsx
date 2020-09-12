@@ -141,6 +141,7 @@ const RS3 = () => {
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
 			.then((res) => {
+				console.log(JSON.parse(res.contents));
 				if (JSON.parse(res.contents).error === 'NO_PROFILE') {
 					updateError(true);
 				} else {
