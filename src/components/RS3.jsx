@@ -9,6 +9,7 @@ import RS3Avatar from './rs3/RS3Avatar';
 import RS3Home from './rs3/RS3Home';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TabView, TabPanel } from 'primereact/tabview';
+
 const axios = require('axios');
 
 const RS3 = () => {
@@ -80,6 +81,8 @@ const RS3 = () => {
 		const updatedBadges = {
 			max: false,
 			maxTotal: false,
+			all120: false,
+			maxXP: false,
 			comp: false,
 			trim: false,
 			quests: false,
@@ -116,6 +119,18 @@ const RS3 = () => {
 							.find((skill) => +skill.split(',')[1] < 99) === undefined;
 					updatedBadges.maxTotal =
 						res.contents.split('\n')[0].split(',')[1] === '2898';
+					updatedBadges.maxXP =
+						res.contents.split('\n')[0].split(',')[2] === '5600000000';
+					const inventionNot120 = res.contents
+						.split('\n')
+						.slice(1, 29)
+						.filter((skill) => +skill.split(',')[2] < 104273167);
+
+					updatedBadges.all120 =
+						inventionNot120.length === 0 ||
+						(inventionNot120.length === 1 &&
+							+inventionNot120[0][2] >= 80618654);
+
 					organizeData(res.contents.split('\n'));
 				}
 			})
@@ -136,7 +151,6 @@ const RS3 = () => {
 			});
 
 		Promise.all([gainsAPICall, statsAPICall, activitiesAPICall]).then(() => {
-			console.log(updatedBadges);
 			updateBadges(updatedBadges);
 			updateLoading(false);
 		});
@@ -148,10 +162,10 @@ const RS3 = () => {
 				<CircularProgress
 					style={{
 						position: 'fixed',
-						left: '50vw',
-						top: '50vh',
+						left: '45vw',
+						top: '45vh',
 					}}
-					size={'100px'}
+					size={'10vw'}
 					color="secondary"
 				/>
 			</div>
@@ -181,17 +195,17 @@ const RS3 = () => {
 								badges={badges}
 							/>
 							<TabView>
+								<TabPanel header="User Info">
+									<RS3User skills={skillData} badges={badges} />
+								</TabPanel>
 								<TabPanel header="Activities">
 									<RS3Activities data={activityData} />
-								</TabPanel>
-								<TabPanel header="User Info">
-									<RS3User />
 								</TabPanel>
 							</TabView>
 						</div>
 						<div className="p-col-12 p-md-1" />
 						<div className="p-col-12 p-md-8">
-							<TabView>
+							<TabView style={{ overflow: 'auto' }}>
 								<TabPanel header="Stats">
 									<RS3Skills data={skillData} />
 								</TabPanel>

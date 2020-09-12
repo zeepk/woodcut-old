@@ -1,21 +1,30 @@
 import React from 'react';
 import { calcVirtualLevel, skillIcon } from '../../Data';
-
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 const RS3Skills = (props) => {
+	const vw = Math.max(
+		document.documentElement.clientWidth || 0,
+		window.innerWidth || 0
+	);
+	const truncate = vw < 550;
 	const skillData = props.data;
 	return (
 		<div>
-			<DataTable value={skillData}>
+			<DataTable
+				value={skillData}
+				scrollable
+				ScrollWidth={'900px'}
+				style={{ minWidth: '500px' }}
+			>
 				<Column
 					style={{ textAlign: 'left' }}
 					field="code"
 					header="Skill"
 					body={(rowData) => (
-						<div style={{ width: '200px' }}>
+						<div style={{ width: `${truncate ? '10px' : '200px'}` }}>
 							{skillIcon(rowData.id)}
-							{` ${rowData.name}`}
+							{truncate ? '' : ` ${rowData.name}`}
 						</div>
 					)}
 				></Column>

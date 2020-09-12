@@ -178,3 +178,101 @@ export const rs3_data_array = [
 	'Clue Scrolls Elite',
 	'Clue Scrolls Master',
 ];
+
+export const calcSkillPercentage = (flag, data) => {
+	const skillsAt120 = [
+		'Invention',
+		'Slayer',
+		'Dungeoneering',
+		'Herblore',
+		'Farming',
+		'Archaeology',
+	];
+	var runningTotal = 0;
+	switch (flag) {
+		case 'max':
+			for (const skill in data) {
+				const xp = +data[skill].xp;
+				if (data[skill].name !== 'Invention') {
+					// not invention, add normally
+					if (xp >= 13034431) {
+						runningTotal += 13034431;
+					} else {
+						runningTotal += xp;
+					}
+				} else {
+					// use invention xp
+					if (xp >= 36073511) {
+						runningTotal += 36073511;
+					} else {
+						runningTotal += xp;
+					}
+				}
+			}
+			return {
+				remainder: 388003148 - runningTotal,
+				percentage: (runningTotal / 388003148) * 100,
+			};
+		case 'maxtotal':
+			for (const skill in data) {
+				const xp = +data[skill].xp;
+				if (data[skill].name === 'Invention') {
+					// use invention xp
+					if (xp >= 80618654) {
+						runningTotal += 80618654;
+					} else {
+						runningTotal += xp;
+					}
+				} else if (skillsAt120.includes(data[skill].name)) {
+					// not invention, add normally
+					if (xp >= 104273167) {
+						runningTotal += 104273167;
+					} else {
+						runningTotal += xp;
+					}
+				} else {
+					// not invention, add normally
+					if (xp >= 13034431) {
+						runningTotal += 13034431;
+					} else {
+						runningTotal += xp;
+					}
+				}
+			}
+			return {
+				remainder: 888741971 - runningTotal,
+				percentage: (runningTotal / 888741971) * 100,
+			};
+		case '120all':
+			for (const skill in data) {
+				const xp = +data[skill].xp;
+				if (data[skill].name !== 'Invention') {
+					// not invention, add normally
+					if (xp >= 104273167) {
+						runningTotal += 104273167;
+					} else {
+						runningTotal += xp;
+					}
+				} else {
+					// use invention xp
+					if (xp >= 80618654) {
+						runningTotal += 80618654;
+					} else {
+						runningTotal += xp;
+					}
+				}
+			}
+			return {
+				remainder: 2895994163 - runningTotal,
+				percentage: (runningTotal / 2895994163) * 100,
+			};
+		case 'maxxp':
+			runningTotal = data.reduce((a, b) => a + +b.xp, 0);
+			return {
+				remainder: 5600000000 - runningTotal,
+				percentage: (runningTotal / 5600000000) * 100,
+			};
+		default:
+			return 25;
+	}
+};

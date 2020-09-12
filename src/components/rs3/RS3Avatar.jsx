@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
+import Badge from './Badge';
 import RuneScoreLogo from '../../images/RuneScore.png';
 import SkillLogo from '../../images/1_overall.png';
-import QuestIcon from '../../images/questIcon.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const RS3Avatar = (props) => {
 	const player_name = props.player_name;
 	const [avatarLoading, updateAvatarLoading] = useState(true);
-	console.log(props.badges);
+	const badges = [];
+	if (props.badges.quests) {
+		badges.push(<Badge key={'1'} icon="quests" />);
+	}
+	if (props.badges.max) {
+		if (props.badges.maxXP) {
+			badges.push(<Badge key={'2'} icon="maxXP" />);
+		} else if (props.badges.all120) {
+			badges.push(<Badge key={'3'} icon="all120" />);
+		} else if (props.badges.maxTotal) {
+			badges.push(<Badge key={'4'} icon="maxTotal" />);
+		} else {
+			badges.push(<Badge key={'5'} icon="max" />);
+		}
+	}
+
 	return (
 		<div className="p-grid user-data" style={{ margin: '0 0 30px 0' }}>
 			<div className="p-col-4">
@@ -65,58 +80,7 @@ const RS3Avatar = (props) => {
 					</p>
 				</div>
 			</div>
-			<span>
-				{props.badges.quests && (
-					<div
-						style={{
-							backgroundColor: '#377797',
-							color: 'white',
-							width: '120px',
-							height: '25px',
-							borderRadius: '10px',
-							textAlign: 'left',
-							fontSize: '15px',
-							margin: '10px 0',
-						}}
-					>
-						<img
-							src={QuestIcon}
-							alt="quest cape"
-							style={{
-								display: 'inline',
-								height: '17px',
-								margin: '0 5px 2px 5px',
-							}}
-						/>
-						Quest Cape
-					</div>
-				)}
-				{(props.badges.max || props.badges.maxTotal) && (
-					<div
-						style={{
-							backgroundColor: 'rgb(113, 41, 41)',
-							color: 'white',
-							width: '100px',
-							height: '25px',
-							borderRadius: '10px',
-							textAlign: 'left',
-							fontSize: '15px',
-							margin: '10px 0',
-						}}
-					>
-						<img
-							src={SkillLogo}
-							alt="maxed"
-							style={{
-								display: 'inline',
-								height: '17px',
-								margin: '0 5px 2px 5px',
-							}}
-						/>
-						{props.badges.maxTotal ? 'Max Total' : 'Maxed'}
-					</div>
-				)}
-			</span>
+			<span>{badges}</span>
 		</div>
 	);
 };

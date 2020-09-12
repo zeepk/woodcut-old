@@ -36,3 +36,6 @@ td {
 .p-md-8 {
 	padding: 0 !important;
 }
+div.p-tabview:nth-child(1) > div:nth-child(2) {
+	min-width: 550px;
+}
