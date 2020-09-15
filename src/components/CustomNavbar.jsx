@@ -16,7 +16,7 @@ const CustomNavbar = () => {
 
 	var now = new Date();
 	var then = new Date(now);
-	then.setUTCHours(30, 0, 0, 0);
+	then.setUTCHours(6, 0, 0, 0);
 	const hours = (then - now) / 3600000;
 	return (
 		<Navbar bg="dark" variant="dark" expand="sm">
