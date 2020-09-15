@@ -26,7 +26,7 @@ const RS3Avatar = (props) => {
 		<div className="p-grid user-data" style={{ margin: '0 0 30px 0' }}>
 			<div className="p-col-4">
 				<img
-					src={`http://secure.runescape.com/m=avatar-rs/${player_name}/chat.png`}
+					src={`https://secure.runescape.com/m=avatar-rs/${player_name}/chat.png`}
 					alt={'nice'}
 					onLoad={() => updateAvatarLoading(false)}
 				/>

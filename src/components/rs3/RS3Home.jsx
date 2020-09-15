@@ -49,7 +49,7 @@ const RS3Home = () => {
 										>
 											<span style={{ height: '50px' }}>
 												<img
-													src={`http://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
+													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
 													alt={'avatar'}
 													style={{ maxHeight: '50px' }}
 												/>
