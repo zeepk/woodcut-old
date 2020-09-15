@@ -11,7 +11,7 @@ const CustomNavbar = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(name);
-		window.location.href = `/rs3/?${name}`;
+		window.location.href = `/rs3/?${name.split(' ').join('+')}`;
 	};
 
 	var now = new Date();
