@@ -46,7 +46,10 @@ const RS3 = () => {
 				rank: separatedArray[0],
 				level: separatedArray[1],
 				xp: separatedArray[2],
-				delta: 0,
+				day: 0,
+				week: 0,
+				month: 0,
+				year: 0,
 			});
 		}
 		for (i = 29; i < 59; i++) {
@@ -55,7 +58,10 @@ const RS3 = () => {
 				name: rs3_data_array[i],
 				rank: separatedArray[0],
 				score: separatedArray[1],
-				delta: 0,
+				day: 0,
+				week: 0,
+				month: 0,
+				year: 0,
 			});
 		}
 		updateSkillData(skill_data);
@@ -63,10 +69,17 @@ const RS3 = () => {
 	};
 	const integrateDeltas = () => {
 		for (var i = 0; i < 29; i++) {
-			skillData[i].delta = skillHistory.statRecords[0].stats[i][3];
+			skillData[i].day = skillHistory.statRecords[0].stats[i][3];
+			skillData[i].week = skillHistory.statRecords[0].stats[i][4];
+			skillData[i].month = skillHistory.statRecords[0].stats[i][5];
+			skillData[i].year = skillHistory.statRecords[0].stats[i][6];
 		}
+		console.log(skillData[0]);
 		for (i = 29; i < 59; i++) {
-			minigameData[i - 29].delta = skillHistory.statRecords[0].stats[i][2];
+			minigameData[i - 29].day = skillHistory.statRecords[0].stats[i][2];
+			minigameData[i - 29].week = skillHistory.statRecords[0].stats[i][3];
+			minigameData[i - 29].month = skillHistory.statRecords[0].stats[i][4];
+			minigameData[i - 29].year = skillHistory.statRecords[0].stats[i][5];
 			// minigameData[i - 29].delta = 8;
 		}
 	};
@@ -95,6 +108,7 @@ const RS3 = () => {
 		const gainsAPICall = axios({
 			method: 'put',
 			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
+			// url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
 			data: {
 				username: username,
 			},

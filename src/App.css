@@ -50,3 +50,7 @@ div.p-tabview:nth-child(1) > div:nth-child(2) {
 .MuiCircularProgress-circle {
 	color: #637747 !important;
 }
+.p-datatable-scrollable-header,
+.p-datatable-scrollable-footer {
+	overflow: visible !important;
+}

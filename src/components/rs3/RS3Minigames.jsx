@@ -35,14 +35,12 @@ const RS3Minigames = (props) => {
 				></Column>
 				<Column
 					style={{ textAlign: 'right' }}
-					field="delta"
+					field="day"
 					header="Day Gain"
 					body={(rowData) => (
-						<div
-							style={{ color: `${rowData.delta > 0 ? '#1abd1a' : 'silver'}` }}
-						>
+						<div style={{ color: `${rowData.day > 0 ? '#1abd1a' : 'silver'}` }}>
 							{`
-						+${rowData.delta.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+						+${rowData.day.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 						</div>
 					)}
 				></Column>
