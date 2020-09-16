@@ -8,36 +8,45 @@ const RS3Home = () => {
 	const [topTenLoading, updateTopTenLoading] = useState(true);
 	useEffect(() => {
 		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
+			// fetch(`http://localhost:8000/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
+				console.log(res);
 				updateTopTenData(res);
 				updateTopTenLoading(false);
 			})
-			.catch((err) => console.log('error in call'));
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
-			<div className="p-grid" style={{ margin: 0 }}>
-				<div
-					className="p-col-12"
-					style={{ color: 'white', margin: '0 auto', width: '400px' }}
-				>
-					<h1>Top Gains</h1>
-					{topTenLoading ? (
-						<div style={{ height: '100vh' }}>
-							<CircularProgress
-								style={{
-									position: 'fixed',
-								}}
-								size={'100px'}
-								color="secondary"
-							/>
-						</div>
-					) : (
+			<h1 style={{ color: 'white' }}>Leaderboards</h1>
+			{topTenLoading ? (
+				<div style={{ height: '100vh' }}>
+					<CircularProgress
+						style={{
+							position: 'fixed',
+							left: '45vw',
+							top: '45vh',
+						}}
+						size={'10vw'}
+						color="secondary"
+					/>
+				</div>
+			) : (
+				<div className="p-grid" style={{ margin: 0 }}>
+					<div
+						className="p-col-12"
+						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+					>
+						<h3>Day</h3>
 						<DataTable
-							value={topTenData}
-							style={{ border: '2px solid silver', borderRadius: '10px' }}
+							value={topTenData.day}
+							style={{
+								border: '2px solid silver',
+								borderRadius: '10px',
+								maxWidth: '95vw',
+							}}
 						>
 							<Column
 								header="Player"
@@ -47,18 +56,18 @@ const RS3Home = () => {
 											href={`/rs3/?${rowData.username}`}
 											style={{ color: 'white' }}
 										>
-											<span style={{ height: '50px' }}>
+											<span style={{ height: '40px' }}>
 												<img
 													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
 													alt={'avatar'}
-													style={{ maxHeight: '50px' }}
+													style={{ maxHeight: '40px' }}
 												/>
 												{rowData.rsn.split('+').join(' ')}
 											</span>
 										</a>
 									);
 								}}
-								style={{ textAlign: 'left', height: '80px' }}
+								style={{ textAlign: 'left', height: '60px' }}
 							/>
 
 							<Column
@@ -76,9 +85,111 @@ const RS3Home = () => {
 								}}
 							/>
 						</DataTable>
-					)}
+					</div>
+					<div
+						className="p-col-12"
+						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+					>
+						<h3>Week</h3>
+						<DataTable
+							value={topTenData.week}
+							style={{
+								border: '2px solid silver',
+								borderRadius: '10px',
+								maxWidth: '95vw',
+							}}
+						>
+							<Column
+								header="Player"
+								body={(rowData) => {
+									return (
+										<a
+											href={`/rs3/?${rowData.username}`}
+											style={{ color: 'white' }}
+										>
+											<span style={{ height: '40px' }}>
+												<img
+													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
+													alt={'avatar'}
+													style={{ maxHeight: '40px' }}
+												/>
+												{rowData.rsn.split('+').join(' ')}
+											</span>
+										</a>
+									);
+								}}
+								style={{ textAlign: 'left', height: '60px' }}
+							/>
+
+							<Column
+								header="Week Gain"
+								style={{ textAlign: 'right' }}
+								body={(rowData) => {
+									return (
+										<div style={{ color: '#1abd1a' }}>
+											{'+' +
+												rowData.xpgain
+													.toString()
+													.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+										</div>
+									);
+								}}
+							/>
+						</DataTable>
+					</div>
+					<div
+						className="p-col-12"
+						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+					>
+						<h3>Month</h3>
+						<DataTable
+							value={topTenData.month}
+							style={{
+								border: '2px solid silver',
+								borderRadius: '10px',
+								maxWidth: '95vw',
+							}}
+						>
+							<Column
+								header="Player"
+								body={(rowData) => {
+									return (
+										<a
+											href={`/rs3/?${rowData.username}`}
+											style={{ color: 'white' }}
+										>
+											<span style={{ height: '40px' }}>
+												<img
+													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
+													alt={'avatar'}
+													style={{ maxHeight: '40px' }}
+												/>
+												{rowData.rsn.split('+').join(' ')}
+											</span>
+										</a>
+									);
+								}}
+								style={{ textAlign: 'left', height: '60px' }}
+							/>
+
+							<Column
+								header="Month Gain"
+								style={{ textAlign: 'right' }}
+								body={(rowData) => {
+									return (
+										<div style={{ color: '#1abd1a' }}>
+											{'+' +
+												rowData.xpgain
+													.toString()
+													.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+										</div>
+									);
+								}}
+							/>
+						</DataTable>
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };

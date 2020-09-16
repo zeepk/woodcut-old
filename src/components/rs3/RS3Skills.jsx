@@ -22,8 +22,8 @@ const RS3Skills = (props) => {
 			<DataTable
 				value={skillData}
 				scrollable
-				ScrollWidth={'900px'}
-				style={{ minWidth: '500px' }}
+				ScrollWidth={'1000px'}
+				style={{ minWidth: '600px' }}
 			>
 				<Column
 					style={{ textAlign: 'left', width: `${truncate ? '10px' : '200px'}` }}
@@ -84,7 +84,7 @@ const RS3Skills = (props) => {
 					field={duration}
 					header={
 						<Dropdown
-							style={{ position: 'relative', zIndex: 1000 }}
+							style={{ position: 'relative', zIndex: 1000, minWidth: '100px' }}
 							value={duration}
 							options={columnOptions}
 							onChange={(e) => {
