@@ -21,7 +21,7 @@ const CustomNavbar = () => {
 	const then = DateTime.fromObject({
 		hour: 6,
 		zone: 'utc',
-	}).plus({ days: 1 });
+	}).plus({ days: now.hour < 6 ? 0 : 1 });
 	// console.log(now.toLocaleString(DateTime.DATETIME_MED));
 	// console.log(then.toLocaleString(DateTime.DATETIME_MED));
 	const hours = Interval.fromDateTimes(now, then).length('hours');
