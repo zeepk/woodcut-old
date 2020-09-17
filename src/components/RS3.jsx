@@ -74,7 +74,7 @@ const RS3 = () => {
 			skillData[i].month = skillHistory.statRecords[0].stats[i][5];
 			skillData[i].year = skillHistory.statRecords[0].stats[i][6];
 		}
-		console.log(skillData[0]);
+		// console.log(skillData[0]);
 		for (i = 29; i < 59; i++) {
 			minigameData[i - 29].day = skillHistory.statRecords[0].stats[i][2];
 			minigameData[i - 29].week = skillHistory.statRecords[0].stats[i][3];
@@ -155,7 +155,7 @@ const RS3 = () => {
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
 			.then((res) => {
-				console.log(JSON.parse(res.contents));
+				// console.log(JSON.parse(res.contents));
 				if (JSON.parse(res.contents).error === 'NO_PROFILE') {
 					updateError(true);
 				} else {

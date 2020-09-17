@@ -11,7 +11,7 @@ const CustomNavbar = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(name);
+		// console.log(name);
 		window.location.href = `/rs3/?${name.split(' ').join('+')}`;
 	};
 
@@ -22,8 +22,8 @@ const CustomNavbar = () => {
 		hour: 6,
 		zone: 'utc',
 	}).plus({ days: 1 });
-	console.log(now.toLocaleString(DateTime.DATETIME_MED));
-	console.log(then.toLocaleString(DateTime.DATETIME_MED));
+	// console.log(now.toLocaleString(DateTime.DATETIME_MED));
+	// console.log(then.toLocaleString(DateTime.DATETIME_MED));
 	const hours = Interval.fromDateTimes(now, then).length('hours');
 	return (
 		<Navbar bg="dark" variant="dark" expand="sm">
