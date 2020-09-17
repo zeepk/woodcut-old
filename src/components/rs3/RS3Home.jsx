@@ -13,7 +13,7 @@ const RS3Home = () => {
 			// fetch(`http://localhost:8000/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
-				console.log(res);
+				// console.log(res);
 				updateTopTenData(res);
 				updateTopTenLoading(false);
 			})
