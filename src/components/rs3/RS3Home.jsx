@@ -6,6 +6,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const RS3Home = () => {
 	const [topTenData, updateTopTenData] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
+	const rowHeight = '7vh';
+	const avatarHeight = '5vh';
 	useEffect(() => {
 		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
 			// fetch(`http://localhost:8000/users/topten`)
@@ -56,18 +58,18 @@ const RS3Home = () => {
 											href={`/rs3/?${rowData.username}`}
 											style={{ color: 'white' }}
 										>
-											<span style={{ height: '40px' }}>
+											<span style={{ height: avatarHeight }}>
 												<img
 													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
 													alt={'avatar'}
-													style={{ maxHeight: '40px' }}
+													style={{ maxHeight: avatarHeight }}
 												/>
 												{rowData.rsn.split('+').join(' ')}
 											</span>
 										</a>
 									);
 								}}
-								style={{ textAlign: 'left', height: '60px' }}
+								style={{ textAlign: 'left', height: rowHeight }}
 							/>
 
 							<Column
@@ -75,7 +77,7 @@ const RS3Home = () => {
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
-										<div style={{ color: '#1abd1a' }}>
+										<div className="gainz">
 											{'+' +
 												rowData.xpgain
 													.toString()
@@ -107,18 +109,18 @@ const RS3Home = () => {
 											href={`/rs3/?${rowData.username}`}
 											style={{ color: 'white' }}
 										>
-											<span style={{ height: '40px' }}>
+											<span style={{ height: avatarHeight }}>
 												<img
 													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
 													alt={'avatar'}
-													style={{ maxHeight: '40px' }}
+													style={{ maxHeight: avatarHeight }}
 												/>
 												{rowData.rsn.split('+').join(' ')}
 											</span>
 										</a>
 									);
 								}}
-								style={{ textAlign: 'left', height: '60px' }}
+								style={{ textAlign: 'left', height: rowHeight }}
 							/>
 
 							<Column
@@ -126,7 +128,7 @@ const RS3Home = () => {
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
-										<div style={{ color: '#1abd1a' }}>
+										<div className="gainz">
 											{'+' +
 												rowData.xpgain
 													.toString()
@@ -158,18 +160,18 @@ const RS3Home = () => {
 											href={`/rs3/?${rowData.username}`}
 											style={{ color: 'white' }}
 										>
-											<span style={{ height: '40px' }}>
+											<span style={{ height: avatarHeight }}>
 												<img
 													src={`https://secure.runescape.com/m=avatar-rs/${rowData.username}/chat.png`}
 													alt={'avatar'}
-													style={{ maxHeight: '40px' }}
+													style={{ maxHeight: avatarHeight }}
 												/>
 												{rowData.rsn.split('+').join(' ')}
 											</span>
 										</a>
 									);
 								}}
-								style={{ textAlign: 'left', height: '60px' }}
+								style={{ textAlign: 'left', height: rowHeight }}
 							/>
 
 							<Column
@@ -177,7 +179,7 @@ const RS3Home = () => {
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
-										<div style={{ color: '#1abd1a' }}>
+										<div className="gainz">
 											{'+' +
 												rowData.xpgain
 													.toString()

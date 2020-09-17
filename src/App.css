@@ -9,6 +9,10 @@
 :root {
 	--font: white;
 	--background: #212121;
+	--gainz: #7eff7e;
+}
+.gainz {
+	color: var(--gainz) !important;
 }
 .App {
 	text-align: center;
@@ -53,4 +57,7 @@ div.p-tabview:nth-child(1) > div:nth-child(2) {
 .p-datatable-scrollable-header,
 .p-datatable-scrollable-footer {
 	overflow: visible !important;
+}
+tr:nth-child(2n) {
+	box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.03);
 }

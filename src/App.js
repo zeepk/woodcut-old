@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import CustomNavbar from './components/CustomNavbar';
+import Footer from './components/Footer';
 import CustomRouter from './components/CustomRouter';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'primereact/resources/themes/luna-pink/theme.css';
@@ -13,6 +14,7 @@ function App() {
 			<Router>
 				<CustomRouter />
 			</Router>
+			<Footer />
 		</div>
 	);
 }

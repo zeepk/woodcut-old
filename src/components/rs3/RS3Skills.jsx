@@ -73,7 +73,10 @@ const RS3Skills = (props) => {
 					field="day"
 					header="Day Gain"
 					body={(rowData) => (
-						<div style={{ color: `${rowData.day > 0 ? '#1abd1a' : 'silver'}` }}>
+						<div
+							style={{ color: 'silver' }}
+							className={rowData.day > 0 ? 'gainz' : ''}
+						>
 							{`
 						+${rowData.day.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 						</div>
@@ -95,9 +98,8 @@ const RS3Skills = (props) => {
 					}
 					body={(rowData) => (
 						<div
-							style={{
-								color: `${rowData[duration] > 0 ? '#1abd1a' : 'silver'}`,
-							}}
+							style={{ color: 'silver' }}
+							className={rowData[duration] > 0 ? 'gainz' : ''}
 						>
 							{`
 						+${rowData[duration].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
