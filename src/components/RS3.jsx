@@ -224,7 +224,7 @@ const RS3 = () => {
 								<TabPanel header="Stats">
 									<RS3Skills data={skillData} />
 								</TabPanel>
-								<TabPanel header="Gain [beta]">
+								<TabPanel header="Chart [beta]">
 									<XPChart player_name={player_name} />
 								</TabPanel>
 								<TabPanel header="Minigames">

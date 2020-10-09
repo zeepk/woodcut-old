@@ -93,7 +93,7 @@ const RS3Skills = (props) => {
 							onChange={(e) => {
 								changeDuration(e.value);
 							}}
-							placeholder="Select a City"
+							placeholder="Select a Duration"
 						/>
 					}
 					body={(rowData) => (

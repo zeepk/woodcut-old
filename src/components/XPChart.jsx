@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar } from 'primereact/calendar';
 import { Chart } from 'primereact/chart';
+import CalendarSelect from './CalendarSelect';
 const axios = require('axios');
 
 const basicOptions = {
@@ -40,11 +40,19 @@ const basicOptions = {
 	},
 };
 const XPChart = (props) => {
-	const defaultDate = new Date();
-	defaultDate.setDate(defaultDate.getDate() - 7);
+	if (
+		localStorage.getItem('chartStartDate') === null ||
+		localStorage.getItem('chartEndDate') === null
+	) {
+		console.log('No local storage found. Creating...');
+		const defaultDate = new Date();
+		defaultDate.setDate(defaultDate.getDate() - 7);
+		window.localStorage.setItem('chartStartDate', defaultDate.toString());
+		window.localStorage.setItem('chartEndDate', new Date().toString());
+	}
 	const [labels, updateLabels] = useState([]);
 	const [datasets, updateDatasets] = useState([]);
-	const [dates, updateDates] = useState([defaultDate, new Date()]);
+	const [xpGain, updateXPGain] = useState(0);
 	const player_name = props.player_name || '';
 	const username = player_name.split(' ').join('+').split('%20').join('+');
 	const updateChart = (startDate, endDate) => {
@@ -57,6 +65,7 @@ const XPChart = (props) => {
 				endDate,
 			},
 		}).then((res) => {
+			console.log(res.data.recordsInRange);
 			if (res.data.recordsInRange) {
 				updateLabels(
 					res.data.recordsInRange.map((record) =>
@@ -70,30 +79,29 @@ const XPChart = (props) => {
 						data: res.data.recordsInRange.map((record) => record.stats[0][3]),
 					},
 				]);
+				updateXPGain(
+					res.data.recordsInRange[res.data.recordsInRange.length - 1]
+						.stats[0][2] - res.data.recordsInRange[0].stats[0][2]
+				);
 			}
 		});
 	};
 	useEffect(() => {
-		updateChart(defaultDate, new Date());
+		updateChart(
+			new Date(localStorage.getItem('chartStartDate')),
+			new Date(localStorage.getItem('chartEndDate'))
+		);
 	}, []);
 
 	return (
 		<div>
-			<Calendar
-				id="range"
-				value={dates}
-				onChange={(e) => {
-					updateDates(e.value);
-					console.log(e.value[0]);
-					console.log(e.value[1]);
-					console.log('--------------');
-					if (e.value[0] && e.value[1]) {
-						updateChart(e.value[0], e.value[1]);
-					}
-				}}
-				selectionMode="range"
-				readOnlyInput
-			/>
+			<span>
+				<CalendarSelect updateChart={updateChart} />
+				<span style={{ margin: '0 10px 0 30px' }}>Total Gain:</span>
+				<span style={{ color: 'var(--gainz)' }}>{` +${xpGain
+					.toString()
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}xp`}</span>
+			</span>
 			<Chart
 				style={{ minHeight: '80vh' }}
 				type="bar"
