@@ -11,7 +11,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 console.info(
 	"%c👋 Hi there! You must know your way around if you're seeing this, hats off to you. ",
-	'background: #292b4a; color: white; font-size: medium'
+	'background: #292b4a; color: white; font-size: small'
 );
 function initializeReactGA() {
 	ReactGA.initialize('UA-178282727-1');
