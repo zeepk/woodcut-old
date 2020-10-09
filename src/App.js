@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import 'primereact/resources/themes/luna-pink/theme.css';
 import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 console.info(
 	"%c👋 Hi there! You must know your way around if you're seeing this, hats off to you. ",

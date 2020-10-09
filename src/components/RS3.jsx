@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { rs3_data_array } from '../Data';
 import { useLocation } from 'react-router-dom';
+import XPChart from './XPChart';
 import RS3Skills from './rs3/RS3Skills';
 import RS3Activities from './rs3/RS3Activities';
 import RS3Minigames from './rs3/RS3Minigames';
@@ -108,7 +109,6 @@ const RS3 = () => {
 		const gainsAPICall = axios({
 			method: 'put',
 			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
-			// url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
 			data: {
 				username: username,
 			},
@@ -223,6 +223,9 @@ const RS3 = () => {
 							<TabView style={{ overflow: 'auto' }}>
 								<TabPanel header="Stats">
 									<RS3Skills data={skillData} />
+								</TabPanel>
+								<TabPanel header="Gain [beta]">
+									<XPChart player_name={player_name} />
 								</TabPanel>
 								<TabPanel header="Minigames">
 									<RS3Minigames data={minigameData} />
