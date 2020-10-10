@@ -62,6 +62,38 @@ const img_array = [
 	Archaeology,
 ];
 
+export const skillNameArray = [
+	'Overall',
+	'Attack',
+	'Defence',
+	'Strength',
+	'Constitution',
+	'Ranged',
+	'Prayer',
+	'Magic',
+	'Cooking',
+	'Woodcutting',
+	'Fletching',
+	'Fishing',
+	'Firemaking',
+	'Crafting',
+	'Smithing',
+	'Mining',
+	'Herblore',
+	'Agility',
+	'Thieving',
+	'Slayer',
+	'Farming',
+	'Runecrafting',
+	'Hunter',
+	'Construction',
+	'Summoning',
+	'Dungeoneering',
+	'Divination',
+	'Invention',
+	'Archaeology',
+];
+
 export const skillIcon = (id) => {
 	return <img style={{ width: '25px' }} src={img_array[id]} alt="skill icon" />;
 };

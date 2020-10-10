@@ -1,6 +1,7 @@
 import React from 'react';
 import RS3 from './RS3';
 import OSRS from './OSRS';
+import RS3Compare from './rs3/RS3Compare';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -22,6 +23,9 @@ const CustomRouter = () => {
 					/>
 					<Route path="/rs3">
 						<RS3 />
+					</Route>
+					<Route path="/compare">
+						<RS3Compare />
 					</Route>
 					<Route path="/osrs">
 						<OSRS />

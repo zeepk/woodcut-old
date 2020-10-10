@@ -39,6 +39,7 @@ const CustomNavbar = () => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="mr-auto">
 					<Nav.Link href="/rs3">Leaderboards</Nav.Link>
+					<Nav.Link href="/compare">Compare [beta]</Nav.Link>
 					{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
 				<Nav.Link href="#about">About</Nav.Link> */}
 				</Nav>
