@@ -8,6 +8,8 @@ import styled from 'styled-components';
 
 const axios = require('axios');
 
+// TODO: add minigames, player names, avatars, gainz with day/month/year maybe
+
 const RS3Compare = () => {
 	const [user1, updateUser1] = useState(
 		useLocation().search.substr(1).split('&')[0]?.toLowerCase().substr(6) || ''
@@ -113,7 +115,7 @@ const RS3Compare = () => {
 				</div>
 				<Button type="submit" label="Compare" />
 			</FormContainer>
-			{content}
+			<div style={{ overflow: 'auto' }}>{content}</div>
 		</View>
 	);
 };

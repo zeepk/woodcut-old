@@ -62,7 +62,7 @@ const RS3CompareChart = (props) => {
 					)}
 				></Column>
 				<Column
-					style={{ textAlign: 'center', width: '200px' }}
+					style={{ textAlign: 'center', width: 'auto' }}
 					field="code"
 					header="Skill"
 					body={(rowData) => (
@@ -120,8 +120,7 @@ const RS3CompareChart = (props) => {
 
 const View = styled.div`
 	.p-datatable {
-		max-width: 90vw;
-		margin: 2vh auto;
+		margin: 2vh 5vw;
 	}
 	min-height: 90vh;
 `;
