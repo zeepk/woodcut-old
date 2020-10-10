@@ -8,8 +8,6 @@ import styled from 'styled-components';
 
 const axios = require('axios');
 
-// TODO: gainz with day/month/year maybe
-
 const RS3Compare = () => {
 	const [user1, updateUser1] = useState(
 		useLocation().search.substr(1).split('&')[0]?.toLowerCase().substr(6) || ''
@@ -131,11 +129,13 @@ const View = styled.div`
 const FormContainer = styled.form`
 	/* margin: 2vh auto 0 5vw; */
 	margin: 2vh auto 0 auto;
-	max-width: 550px;
+	max-width: 470px;
+	padding: 10px;
 	.p-inputtext {
 		font-size: 1.3rem;
 		font-family: RuneScape UF;
 		padding: 0 0 0 5px;
+		width: 150px;
 	}
 `;
 const Title = styled.h1`

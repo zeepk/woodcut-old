@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { calcVirtualLevel, skillIcon, rs3_data_array } from '../../Data';
 import { TabView, TabPanel } from 'primereact/tabview';
 import { DataTable } from 'primereact/datatable';
+import { Dropdown } from 'primereact/dropdown';
 import { Column } from 'primereact/column';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
 
 const RS3CompareChart = (props) => {
+	const columnOptions = [
+		{ label: 'Day', value: 'day' },
+		{ label: 'Week', value: 'week' },
+		{ label: 'Month', value: 'month' },
+		{ label: 'Year', value: 'year' },
+	];
 	const [avatarLoading, updateAvatarLoading] = useState(true);
+	const [duration, changeDuration] = useState('day');
 	const user1Skills = props.skillData.user1SkillHistory.statRecords[0].stats;
 	const user2Skills = props.skillData.user2SkillHistory.statRecords[0].stats;
 	const skillData = user1Skills.slice(0, 29).map((skill, index) => {
@@ -17,9 +25,17 @@ const RS3CompareChart = (props) => {
 			rank: skill[0],
 			level: skill[1],
 			xp: skill[2],
+			day: skill[3],
+			week: skill[4],
+			month: skill[5],
+			year: skill[6],
 			rank2: user2Skills[index][0],
 			level2: user2Skills[index][1],
 			xp2: user2Skills[index][2],
+			day2: user2Skills[index][3],
+			week2: user2Skills[index][4],
+			month2: user2Skills[index][5],
+			year2: user2Skills[index][6],
 		};
 		return skillObj;
 	});
@@ -31,8 +47,16 @@ const RS3CompareChart = (props) => {
 				name: rs3_data_array[index + 29],
 				rank: minigame[0],
 				score: minigame[1],
+				day: minigame[2],
+				week: minigame[3],
+				month: minigame[4],
+				year: minigame[5],
 				rank2: user2Skills[index + 29][0],
 				score2: user2Skills[index + 29][1],
+				day2: user2Skills[index + 29][2],
+				week2: user2Skills[index + 29][3],
+				month2: user2Skills[index + 29][4],
+				year2: user2Skills[index + 29][5],
 			};
 			return minigameObj;
 		});
@@ -109,6 +133,34 @@ const RS3CompareChart = (props) => {
 							)}
 						></Column>
 						<Column
+							style={{ textAlign: 'right' }}
+							field={duration}
+							header={
+								<Dropdown
+									style={{
+										position: 'relative',
+										zIndex: 1000,
+										minWidth: '100px',
+									}}
+									value={duration}
+									options={columnOptions}
+									onChange={(e) => {
+										changeDuration(e.value);
+									}}
+									placeholder="Select a Duration"
+								/>
+							}
+							body={(rowData) => (
+								<div
+									style={{ color: 'silver' }}
+									className={rowData[duration] > 0 ? 'gainz' : ''}
+								>
+									{`
+						+${rowData[duration].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+								</div>
+							)}
+						></Column>
+						<Column
 							style={{ textAlign: 'center', width: 'auto' }}
 							field="code"
 							header="Skill"
@@ -116,6 +168,34 @@ const RS3CompareChart = (props) => {
 								<div>
 									{skillIcon(rowData.id)}
 									{/* {rowData.name} */}
+								</div>
+							)}
+						></Column>
+						<Column
+							style={{ textAlign: 'right' }}
+							field={duration}
+							header={
+								<Dropdown
+									style={{
+										position: 'relative',
+										zIndex: 1000,
+										minWidth: '100px',
+									}}
+									value={duration}
+									options={columnOptions}
+									onChange={(e) => {
+										changeDuration(e.value);
+									}}
+									placeholder="Select a Duration"
+								/>
+							}
+							body={(rowData) => (
+								<div
+									style={{ color: 'silver' }}
+									className={rowData[duration + '2'] > 0 ? 'gainz' : ''}
+								>
+									{`
+						+${rowData[duration + '2'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 								</div>
 							)}
 						></Column>
@@ -199,9 +279,65 @@ const RS3CompareChart = (props) => {
 							)}
 						></Column>
 						<Column
+							style={{ textAlign: 'right' }}
+							field={duration}
+							header={
+								<Dropdown
+									style={{
+										position: 'relative',
+										zIndex: 1000,
+										minWidth: '100px',
+									}}
+									value={duration}
+									options={columnOptions}
+									onChange={(e) => {
+										changeDuration(e.value);
+									}}
+									placeholder="Select a Duration"
+								/>
+							}
+							body={(rowData) => (
+								<div
+									style={{ color: 'silver' }}
+									className={rowData[duration] > 0 ? 'gainz' : ''}
+								>
+									{`
+						+${rowData[duration].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+								</div>
+							)}
+						></Column>
+						<Column
 							style={{ textAlign: 'center', width: 'auto' }}
 							field="name"
 							header="Minigame"
+						></Column>
+						<Column
+							style={{ textAlign: 'right' }}
+							field={duration}
+							header={
+								<Dropdown
+									style={{
+										position: 'relative',
+										zIndex: 1000,
+										minWidth: '100px',
+									}}
+									value={duration}
+									options={columnOptions}
+									onChange={(e) => {
+										changeDuration(e.value);
+									}}
+									placeholder="Select a Duration"
+								/>
+							}
+							body={(rowData) => (
+								<div
+									style={{ color: 'silver' }}
+									className={rowData[duration + '2'] > 0 ? 'gainz' : ''}
+								>
+									{`
+						+${rowData[duration + '2'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+								</div>
+							)}
 						></Column>
 						<Column
 							style={{ textAlign: 'right' }}
