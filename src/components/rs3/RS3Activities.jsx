@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+const goodProxyurl = 'https://cors-anywhere.herokuapp.com/';
+const proxyurl = 'https://api.allorigins.win/get?url=';
+
 const RS3Activities = (props) => {
-	const activityData = props.data;
+	const [activityData, updateActivityData] = useState([]);
+
+	useEffect(() => {
+		// first, tries to fetch 20 activities with the good proxyurl
+		fetch(
+			`${goodProxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${props.player_name}&activities=20`
+		)
+			.then((res) => res.json())
+			.then((res) => {
+				updateActivityData(res);
+			})
+			.catch((err) => {
+				// if the good proxyurl has hit its limit, we settle and use the other one
+				console.log(err);
+				console.log(
+					'The cors-anywhere proxy URL has hit its limit. Searching again using standard proxy.'
+				);
+				fetch(
+					`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${props.player_name}&activities=20`
+				)
+					.then((res) => res.json())
+					.then((res) => {
+						updateActivityData(JSON.parse(res.contents));
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			});
+	}, [props.player_name]);
 	if (activityData.error) {
-		activityData.activities = [
-			{ text: 'Profile Private', details: 'No activity data available' },
-		];
+		return <p>Profile Private</p>;
 	}
 	return (
 		<div>

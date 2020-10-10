@@ -19,7 +19,6 @@ const axios = require('axios');
 const RS3 = () => {
 	const [skillData, updateSkillData] = useState([]);
 	const [skillHistory, updateSkillHistory] = useState({});
-	const [activityData, updateActivityData] = useState([]);
 	const [minigameData, updateMinigameData] = useState([]);
 	const [isError, updateError] = useState(false);
 	const [loading, updateLoading] = useState(true);
@@ -154,7 +153,7 @@ const RS3 = () => {
 			})
 			.catch((err) => console.log(err));
 		const activitiesAPICall = fetch(
-			`${'https://cors-anywhere.herokuapp.com/'}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
@@ -170,7 +169,6 @@ const RS3 = () => {
 					updateError(true);
 				} else {
 					updatedBadges.quests = res.questscomplete === 295;
-					updateActivityData(res);
 				}
 			});
 
@@ -232,7 +230,7 @@ const RS3 = () => {
 									<RS3User skills={skillData} badges={badges} />
 								</TabPanel>
 								<TabPanel header="Activities">
-									<RS3Activities data={activityData} />
+									<RS3Activities player_name={player_name} />
 								</TabPanel>
 							</TabView>
 							<FormContainer
