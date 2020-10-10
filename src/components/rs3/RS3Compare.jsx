@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const axios = require('axios');
 
-// TODO: add minigames, player names, avatars, gainz with day/month/year maybe
+// TODO: gainz with day/month/year maybe
 
 const RS3Compare = () => {
 	const [user1, updateUser1] = useState(
@@ -19,6 +19,7 @@ const RS3Compare = () => {
 	);
 	const [user1SkillHistory, updateUser1SkillHistory] = useState([]);
 	const [user2SkillHistory, updateUser2SkillHistory] = useState([]);
+	const [displayNames, updateDisplayNames] = useState(['', '']);
 	const [loading, updateLoading] = useState(false);
 	useEffect(() => {
 		if (user1 && user2) {
@@ -52,6 +53,7 @@ const RS3Compare = () => {
 			.catch((err) => console.log(err));
 		Promise.all([user1APICall, user2APICall]).then(() => {
 			updateLoading(false);
+			updateDisplayNames([user1, user2]);
 		});
 	};
 
@@ -81,7 +83,10 @@ const RS3Compare = () => {
 		);
 	} else if (user1SkillHistory.statRecords?.length > 0) {
 		content = (
-			<RS3CompareChart skillData={{ user1SkillHistory, user2SkillHistory }} />
+			<RS3CompareChart
+				skillData={{ user1SkillHistory, user2SkillHistory }}
+				displayNames={displayNames}
+			/>
 		);
 	}
 
@@ -99,7 +104,7 @@ const RS3Compare = () => {
 						id="firstname5"
 						type="text"
 						placeholder="User 1"
-						onChange={(e) => updateUser1(e.target.value)}
+						onChange={(e) => updateUser1(e.target.value.split(' ').join('+'))}
 					/>
 				</div>
 				<div className="p-field">
@@ -110,7 +115,7 @@ const RS3Compare = () => {
 						id="lastname5"
 						type="text"
 						placeholder="User 2"
-						onChange={(e) => updateUser2(e.target.value)}
+						onChange={(e) => updateUser2(e.target.value.split(' ').join('+'))}
 					/>
 				</div>
 				<Button type="submit" label="Compare" />
@@ -124,8 +129,14 @@ const View = styled.div`
 	min-height: 90vh;
 `;
 const FormContainer = styled.form`
-	margin: 2vh auto 0 5vw;
-	max-width: 600px;
+	/* margin: 2vh auto 0 5vw; */
+	margin: 2vh auto 0 auto;
+	max-width: 550px;
+	.p-inputtext {
+		font-size: 1.3rem;
+		font-family: RuneScape UF;
+		padding: 0 0 0 5px;
+	}
 `;
 const Title = styled.h1`
 	margin: 20vh auto;
