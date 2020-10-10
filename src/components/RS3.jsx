@@ -9,6 +9,9 @@ import RS3User from './rs3/RS3User';
 import RS3Avatar from './rs3/RS3Avatar';
 import RS3Home from './rs3/RS3Home';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import styled from 'styled-components';
 import { TabView, TabPanel } from 'primereact/tabview';
 
 const axios = require('axios');
@@ -20,6 +23,7 @@ const RS3 = () => {
 	const [minigameData, updateMinigameData] = useState([]);
 	const [isError, updateError] = useState(false);
 	const [loading, updateLoading] = useState(true);
+	const [user2, updateUser2] = useState('');
 	const [badges, updateBadges] = useState({
 		max: false,
 		maxTotal: false,
@@ -150,18 +154,23 @@ const RS3 = () => {
 			})
 			.catch((err) => console.log(err));
 		const activitiesAPICall = fetch(
-			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`${'https://cors-anywhere.herokuapp.com/'}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
 			// .then(res => this.setState({log: res}))
 			.then((res) => {
-				// console.log(JSON.parse(res.contents));
-				if (JSON.parse(res.contents).error === 'NO_PROFILE') {
+				// if (JSON.parse(res.contents).error === 'NO_PROFILE') {
+				// 	updateError(true);
+				// } else {
+				// 	updatedBadges.quests =
+				// 		JSON.parse(res.contents).questscomplete === 295;
+				// 	updateActivityData(JSON.parse(res.contents));
+				// }
+				if (res.error === 'NO_PROFILE') {
 					updateError(true);
 				} else {
-					updatedBadges.quests =
-						JSON.parse(res.contents).questscomplete === 295;
-					updateActivityData(JSON.parse(res.contents));
+					updatedBadges.quests = res.questscomplete === 295;
+					updateActivityData(res);
 				}
 			});
 
@@ -170,6 +179,15 @@ const RS3 = () => {
 			updateLoading(false);
 		});
 	}, [player_name]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		window.location.href = `/compare/?user1=${player_name
+			.split(' ')
+			.join('+')
+			.split('%20')
+			.join('+')}&user2=${user2}`;
+	};
 
 	if (loading) {
 		return (
@@ -217,6 +235,25 @@ const RS3 = () => {
 									<RS3Activities data={activityData} />
 								</TabPanel>
 							</TabView>
+							<FormContainer
+								className="p-formgroup-inline"
+								onSubmit={(e) => handleSubmit(e)}
+							>
+								<div className="p-field">
+									<label htmlFor="lastname5" className="p-sr-only">
+										User 2
+									</label>
+									<InputText
+										id="lastname5"
+										type="text"
+										placeholder="Player"
+										onChange={(e) =>
+											updateUser2(e.target.value.split(' ').join('+'))
+										}
+									/>
+								</div>
+								<Button type="submit" label="Compare Me!" />
+							</FormContainer>
 						</div>
 						<div className="p-col-12 p-md-1" />
 						<div className="p-col-12 p-md-8">
@@ -240,3 +277,15 @@ const RS3 = () => {
 };
 
 export default RS3;
+const FormContainer = styled.form`
+	/* margin: 2vh auto 0 5vw; */
+	margin: 2vh auto 0 auto;
+	max-width: 470px;
+	padding: 10px;
+	.p-inputtext {
+		font-size: 1.3rem;
+		font-family: RuneScape UF;
+		padding: 0 0 0 5px;
+		width: 150px;
+	}
+`;

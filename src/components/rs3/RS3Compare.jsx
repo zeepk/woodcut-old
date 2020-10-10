@@ -96,23 +96,23 @@ const RS3Compare = () => {
 			>
 				<div className="p-field">
 					<label htmlFor="firstname5" className="p-sr-only">
-						User 1
+						Player 1
 					</label>
 					<InputText
 						id="firstname5"
 						type="text"
-						placeholder="User 1"
+						placeholder="Player 1"
 						onChange={(e) => updateUser1(e.target.value.split(' ').join('+'))}
 					/>
 				</div>
 				<div className="p-field">
 					<label htmlFor="lastname5" className="p-sr-only">
-						User 2
+						Player 2
 					</label>
 					<InputText
 						id="lastname5"
 						type="text"
-						placeholder="User 2"
+						placeholder="Player 2"
 						onChange={(e) => updateUser2(e.target.value.split(' ').join('+'))}
 					/>
 				</div>

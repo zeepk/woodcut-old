@@ -16,26 +16,32 @@ const RS3CompareChart = (props) => {
 	];
 	const [avatarLoading, updateAvatarLoading] = useState(true);
 	const [duration, changeDuration] = useState('day');
-	const user1Skills = props.skillData.user1SkillHistory.statRecords[0].stats;
-	const user2Skills = props.skillData.user2SkillHistory.statRecords[0].stats;
+	var user1Skills;
+	var user2Skills;
+	try {
+		user1Skills = props.skillData.user1SkillHistory.statRecords[0].stats;
+		user2Skills = props.skillData.user2SkillHistory.statRecords[0].stats;
+	} catch (error) {
+		return <Username>Players not found.</Username>;
+	}
 	const skillData = user1Skills.slice(0, 29).map((skill, index) => {
 		const skillObj = {
 			id: index,
 			name: rs3_data_array[index],
-			rank: skill[0],
-			level: skill[1],
-			xp: skill[2],
-			day: skill[3],
-			week: skill[4],
-			month: skill[5],
-			year: skill[6],
-			rank2: user2Skills[index][0],
-			level2: user2Skills[index][1],
-			xp2: user2Skills[index][2],
-			day2: user2Skills[index][3],
-			week2: user2Skills[index][4],
-			month2: user2Skills[index][5],
-			year2: user2Skills[index][6],
+			rank: +skill[0],
+			level: +skill[1],
+			xp: +skill[2],
+			day: +skill[3],
+			week: +skill[4],
+			month: +skill[5],
+			year: +skill[6],
+			rank2: +user2Skills[index][0],
+			level2: +user2Skills[index][1],
+			xp2: +user2Skills[index][2],
+			day2: +user2Skills[index][3],
+			week2: +user2Skills[index][4],
+			month2: +user2Skills[index][5],
+			year2: +user2Skills[index][6],
 		};
 		return skillObj;
 	});
@@ -45,18 +51,18 @@ const RS3CompareChart = (props) => {
 			const minigameObj = {
 				id: index + 29,
 				name: rs3_data_array[index + 29],
-				rank: minigame[0],
-				score: minigame[1],
-				day: minigame[2],
-				week: minigame[3],
-				month: minigame[4],
-				year: minigame[5],
-				rank2: user2Skills[index + 29][0],
-				score2: user2Skills[index + 29][1],
-				day2: user2Skills[index + 29][2],
-				week2: user2Skills[index + 29][3],
-				month2: user2Skills[index + 29][4],
-				year2: user2Skills[index + 29][5],
+				rank: +minigame[0],
+				score: +minigame[1],
+				day: +minigame[2],
+				week: +minigame[3],
+				month: +minigame[4],
+				year: +minigame[5],
+				rank2: +user2Skills[index + 29][0],
+				score2: +user2Skills[index + 29][1],
+				day2: +user2Skills[index + 29][2],
+				week2: +user2Skills[index + 29][3],
+				month2: +user2Skills[index + 29][4],
+				year2: +user2Skills[index + 29][5],
 			};
 			return minigameObj;
 		});
@@ -65,29 +71,33 @@ const RS3CompareChart = (props) => {
 		<View>
 			<Header className="p-grid">
 				<div className="p-col-5">
-					<Avatar
-						src={`https://secure.runescape.com/m=avatar-rs/${props.displayNames[0]}/chat.png`}
-						alt={'nice'}
-						onLoad={() => updateAvatarLoading(false)}
-					/>
-					{avatarLoading ? (
-						<CircularProgress size={'30px'} color="secondary" />
-					) : (
-						<Username>{props.displayNames[0].replace('+', ' ')}</Username>
-					)}
+					<a href={`/rs3/?${props.displayNames[0]}`} style={{ color: 'white' }}>
+						<Avatar
+							src={`https://secure.runescape.com/m=avatar-rs/${props.displayNames[0]}/chat.png`}
+							alt={'nice'}
+							onLoad={() => updateAvatarLoading(false)}
+						/>
+						{avatarLoading ? (
+							<CircularProgress size={'30px'} color="secondary" />
+						) : (
+							<Username>{props.displayNames[0].replace('+', ' ')}</Username>
+						)}
+					</a>
 				</div>
 				<div className="p-col"></div>
 				<div className="p-col-5">
-					<Avatar
-						src={`https://secure.runescape.com/m=avatar-rs/${props.displayNames[1]}/chat.png`}
-						alt={'nice'}
-						onLoad={() => updateAvatarLoading(false)}
-					/>
-					{avatarLoading ? (
-						<CircularProgress size={'30px'} color="secondary" />
-					) : (
-						<Username>{props.displayNames[1].replace('+', ' ')}</Username>
-					)}
+					<a href={`/rs3/?${props.displayNames[1]}`} style={{ color: 'white' }}>
+						<Avatar
+							src={`https://secure.runescape.com/m=avatar-rs/${props.displayNames[1]}/chat.png`}
+							alt={'nice'}
+							onLoad={() => updateAvatarLoading(false)}
+						/>
+						{avatarLoading ? (
+							<CircularProgress size={'30px'} color="secondary" />
+						) : (
+							<Username>{props.displayNames[1].replace('+', ' ')}</Username>
+						)}
+					</a>
 				</div>
 			</Header>
 			<TabView>
@@ -106,7 +116,8 @@ const RS3CompareChart = (props) => {
 								<div>
 									{rowData.rank
 										.toString()
-										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										.replace('-1', '')}
 								</div>
 							)}
 						></Column>
@@ -127,8 +138,11 @@ const RS3CompareChart = (props) => {
 							field="xp"
 							header="XP"
 							body={(rowData) => (
-								<div>
-									{rowData.xp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								<div className={rowData.xp > rowData.xp2 ? 'gainz' : ''}>
+									{rowData.xp
+										.toString()
+										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										.replace('-1', '0')}
 								</div>
 							)}
 						></Column>
@@ -204,8 +218,11 @@ const RS3CompareChart = (props) => {
 							field="xp2"
 							header="XP"
 							body={(rowData) => (
-								<div>
-									{rowData.xp2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+								<div className={rowData.xp2 > rowData.xp ? 'gainz' : ''}>
+									{rowData.xp2
+										.toString()
+										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										.replace('-1', '0')}
 								</div>
 							)}
 						></Column>
@@ -238,7 +255,8 @@ const RS3CompareChart = (props) => {
 								<div>
 									{rowData.rank2
 										.toString()
-										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										.replace('-1', '')}
 								</div>
 							)}
 						></Column>
@@ -270,7 +288,7 @@ const RS3CompareChart = (props) => {
 							field="score"
 							header="Score"
 							body={(rowData) => (
-								<div>
+								<div className={rowData.score > rowData.score2 ? 'gainz' : ''}>
 									{rowData.score
 										.toString()
 										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -279,7 +297,7 @@ const RS3CompareChart = (props) => {
 							)}
 						></Column>
 						<Column
-							style={{ textAlign: 'right' }}
+							style={{ textAlign: 'left' }}
 							field={duration}
 							header={
 								<Dropdown
@@ -344,7 +362,7 @@ const RS3CompareChart = (props) => {
 							field="score2"
 							header="Score"
 							body={(rowData) => (
-								<div>
+								<div className={rowData.score < rowData.score2 ? 'gainz' : ''}>
 									{rowData.score2
 										.toString()
 										.replace(/\B(?=(\d{3})+(?!\d))/g, ',')

@@ -19,7 +19,7 @@ const RS3Activities = (props) => {
 								{rowData.text.replace('000000XP', 'm xp')}
 							</div>
 							<div style={{ fontSize: '12px' }}>
-								{rowData.details.replace('000000', 'm')}
+								{rowData.details.replace('000000 e', 'm e')}
 							</div>
 						</div>
 					)}

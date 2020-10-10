@@ -44,7 +44,7 @@ div.p-tabview:nth-child(1) > div:nth-child(2) {
 	min-width: 650px;
 }
 .p-dropdown-label {
-	font-size: 1.1rem !important;
+	text-align: center;
 }
 .p-unselectable-text > a {
 	background-color: #28311e !important;
