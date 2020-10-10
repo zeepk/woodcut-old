@@ -58,14 +58,14 @@ const XPChart = (props) => {
 	const updateChart = (startDate, endDate) => {
 		axios({
 			method: 'get',
-			url: `https://hidden-oasis-88699.herokuapp.com/users/daterange/${username}`,
+			url: `http://localhost:8000/users/daterange/${username}`,
+			// url: `https://hidden-oasis-88699.herokuapp.com/users/daterange/${username}`,
 			headers: {},
 			params: {
 				startDate,
 				endDate,
 			},
 		}).then((res) => {
-			console.log(res.data.recordsInRange);
 			if (res.data.recordsInRange) {
 				updateLabels(
 					res.data.recordsInRange.map((record) =>
@@ -80,8 +80,7 @@ const XPChart = (props) => {
 					},
 				]);
 				updateXPGain(
-					res.data.recordsInRange[res.data.recordsInRange.length - 1]
-						.stats[0][2] - res.data.recordsInRange[0].stats[0][2]
+					res.data.recordsInRange.reduce((a, b) => a + +b.stats[0][3], 0)
 				);
 			}
 		});
