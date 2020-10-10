@@ -58,8 +58,8 @@ const XPChart = (props) => {
 	const updateChart = (startDate, endDate) => {
 		axios({
 			method: 'get',
-			url: `http://localhost:8000/users/daterange/${username}`,
-			// url: `https://hidden-oasis-88699.herokuapp.com/users/daterange/${username}`,
+			// url: `http://localhost:8000/users/daterange/${username}`,
+			url: `https://hidden-oasis-88699.herokuapp.com/users/daterange/${username}`,
 			headers: {},
 			params: {
 				startDate,
