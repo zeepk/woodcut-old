@@ -156,15 +156,7 @@ const RS3 = () => {
 			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
 		)
 			.then((res) => res.json())
-			// .then(res => this.setState({log: res}))
 			.then((res) => {
-				// if (JSON.parse(res.contents).error === 'NO_PROFILE') {
-				// 	updateError(true);
-				// } else {
-				// 	updatedBadges.quests =
-				// 		JSON.parse(res.contents).questscomplete === 295;
-				// 	updateActivityData(JSON.parse(res.contents));
-				// }
 				if (res.error === 'NO_PROFILE') {
 					updateError(true);
 				} else {
@@ -218,7 +210,6 @@ const RS3 = () => {
 						style={{ margin: 0, padding: '3vh 3vw 10vh 3vw' }}
 					>
 						<div className="p-col-12 p-md-3">
-							{/* {details} */}
 							<RS3Avatar
 								player_name={player_name}
 								xp={skillData[0].xp}

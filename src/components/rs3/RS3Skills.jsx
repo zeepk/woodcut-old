@@ -16,7 +16,6 @@ const RS3Skills = (props) => {
 	);
 	const truncate = vw < 550;
 	const skillData = props.data;
-	// console.table(skillData);
 	return (
 		<div>
 			<DataTable
