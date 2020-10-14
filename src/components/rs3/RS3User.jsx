@@ -14,8 +14,8 @@ const RS3User = (props) => {
 		defaultOption = 1;
 	}
 	const options = [
-		{ label: 'Max', value: 'max' },
-		{ label: 'Max Total', value: 'maxtotal' },
+		{ label: 'Max Cape', value: 'max' },
+		{ label: 'Max Total Lvl', value: 'maxtotal' },
 		{ label: '120 All', value: '120all' },
 		{ label: 'Max XP', value: 'maxxp' },
 	];
