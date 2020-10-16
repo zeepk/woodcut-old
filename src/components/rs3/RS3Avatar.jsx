@@ -42,10 +42,21 @@ const RS3Avatar = (props) => {
 						color: 'white',
 						textAlign: 'left',
 						fontFamily: 'RuneScape UF',
+						margin: 0,
 					}}
 				>
 					{player_name}
 				</h1>
+				<p
+					style={{
+						color: 'white',
+						textAlign: 'left',
+						fontFamily: 'RuneScape UF',
+						margin: 0,
+					}}
+				>
+					{props.clanName}
+				</p>
 				<div style={{ textAlign: 'left' }}>
 					<img
 						src={RuneScoreLogo}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +8,16 @@ import Logo from '../images/woodcutLogo.png';
 import { DateTime, Interval } from 'luxon';
 const CustomNavbar = () => {
 	const [name, updateName] = useState([]);
+	const [count, updateCount] = useState(0);
+
+	useEffect(() => {
+		// first, tries to fetch 20 activities with the good proxyurl
+		fetch('https://hidden-oasis-88699.herokuapp.com/users/playercount')
+			.then((res) => res.json())
+			.then((res) => {
+				updateCount(res.players);
+			});
+	}, []);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -43,6 +53,16 @@ const CustomNavbar = () => {
 					{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
 				<Nav.Link href="#about">About</Nav.Link> */}
 				</Nav>
+				<div
+					style={{
+						color: 'white',
+						margin: '0 30px 0 0',
+						fontSize: '14px',
+						textAlign: 'left',
+					}}
+				>{`There are ${
+					count?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') || 'some'
+				} players online`}</div>
 				<div
 					style={{
 						color: 'white',

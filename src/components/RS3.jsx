@@ -23,6 +23,7 @@ const RS3 = () => {
 	const [isError, updateError] = useState(false);
 	const [loading, updateLoading] = useState(true);
 	const [user2, updateUser2] = useState('');
+	const [clanName, updateClanName] = useState('');
 	const [badges, updateBadges] = useState({
 		max: false,
 		maxTotal: false,
@@ -163,8 +164,20 @@ const RS3 = () => {
 					updatedBadges.quests = res.questscomplete === 295;
 				}
 			});
+		const clanNameAPICall = fetch(
+			`https://hidden-oasis-88699.herokuapp.com/users/details/${username}`
+		)
+			.then((res) => res.json())
+			.then((res) => {
+				updateClanName(res[0].clan);
+			});
 
-		Promise.all([gainsAPICall, statsAPICall, activitiesAPICall]).then(() => {
+		Promise.all([
+			gainsAPICall,
+			statsAPICall,
+			activitiesAPICall,
+			clanNameAPICall,
+		]).then(() => {
 			updateBadges(updatedBadges);
 			updateLoading(false);
 		});
@@ -215,6 +228,7 @@ const RS3 = () => {
 								xp={skillData[0].xp}
 								runescore={minigameData[24].score}
 								badges={badges}
+								clanName={clanName}
 							/>
 							<TabView>
 								<TabPanel header="User Info">
