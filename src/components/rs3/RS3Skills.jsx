@@ -21,7 +21,7 @@ const RS3Skills = (props) => {
 			<DataTable
 				value={skillData}
 				scrollable
-				ScrollWidth={'1000px'}
+				ScrollWidth={'1200px'}
 				style={{ minWidth: '600px' }}
 			>
 				<Column

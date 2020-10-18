@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Toast } from 'primereact/toast';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const RS3Home = () => {
+	const myToast = useRef(null);
+	const showToast = (severityValue, summaryValue, detailValue) => {
+		myToast.current.show({
+			severity: severityValue,
+			summary: summaryValue,
+			detail: detailValue,
+		});
+	};
 	const [topTenData, updateTopTenData] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
 	const rowHeight = '7vh';
@@ -16,24 +25,47 @@ const RS3Home = () => {
 				// console.log(res);
 				updateTopTenData(res);
 				updateTopTenLoading(false);
+				setTimeout(function () {
+					showToast(
+						'info',
+						"Gainz don't look right?",
+						'Try a quick page refresh!'
+					);
+				}, 3000);
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
+			<Toast
+				ref={myToast}
+				style={{
+					maxWidth: '90vw',
+					width: '300px',
+					maxHeight: '100px',
+					fontSize: '0.9rem',
+					life: 10000,
+				}}
+				position="top-left"
+			/>
 			<h1 style={{ color: 'white' }}>Leaderboards</h1>
 			{topTenLoading ? (
-				<div style={{ height: '100vh' }}>
-					<CircularProgress
+				<div style={{ height: '100vh', width: '100vw' }}>
+					<div
 						style={{
 							position: 'fixed',
-							left: '45vw',
-							top: '45vh',
+							left: '25vw',
+							top: '40vh',
+							width: '50vw',
+							color: 'white',
+							textAlign: 'center',
+							fontSize: '1rem',
 						}}
-						size={'10vw'}
-						color="secondary"
-					/>
+					>
+						<CircularProgress size={'10vw'} color="secondary" />
+						<p>Sorry, this one takes a few seconds...</p>
+					</div>
 				</div>
 			) : (
 				<div className="p-grid" style={{ margin: 0 }}>
