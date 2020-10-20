@@ -21,8 +21,8 @@ const RS3Skills = (props) => {
 			<DataTable
 				value={skillData}
 				scrollable
-				ScrollWidth={'1200px'}
-				style={{ minWidth: '600px' }}
+				ScrollWidth={'2000px'}
+				style={{ minWidth: '800px' }}
 			>
 				<Column
 					style={{ textAlign: 'left', width: `${truncate ? '10px' : '200px'}` }}
@@ -61,6 +61,7 @@ const RS3Skills = (props) => {
 					style={{ textAlign: 'right' }}
 					field="xp"
 					header="XP"
+					sortable
 					body={(rowData) => (
 						<div>
 							{rowData.xp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -71,6 +72,7 @@ const RS3Skills = (props) => {
 					style={{ textAlign: 'right' }}
 					field="day"
 					header="Day Gain"
+					sortable
 					body={(rowData) => (
 						<div
 							style={{ color: 'silver' }}
@@ -84,6 +86,7 @@ const RS3Skills = (props) => {
 				<Column
 					style={{ textAlign: 'right' }}
 					field={duration}
+					sortable
 					header={
 						<Dropdown
 							style={{ position: 'relative', zIndex: 1000, minWidth: '100px' }}

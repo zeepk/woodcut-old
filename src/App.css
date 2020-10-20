@@ -64,3 +64,9 @@ tr:nth-child(2n) {
 .p-tabview-selected > a {
 	color: var(--gainz) !important;
 }
+.p-sortable-column.p-highlight,
+.p-sortable-column.p-highlight,
+.pi-sort-amount-up-alt,
+.pi-sort-amount-down {
+	color: var(--gainz) !important;
+}
