@@ -18,8 +18,8 @@ const RS3Home = () => {
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
 	useEffect(() => {
-		// fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
-		fetch(`http://localhost:8000/users/topten`)
+		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
+			// fetch(`http://localhost:8000/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
 				// console.log(res);
