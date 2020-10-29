@@ -18,8 +18,8 @@ const RS3Home = () => {
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
 	useEffect(() => {
-		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
-			// fetch(`http://localhost:8000/users/topten`)
+		// fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
+		fetch(`http://localhost:8000/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
 				// console.log(res);
@@ -51,7 +51,7 @@ const RS3Home = () => {
 			/>
 			<h1 style={{ color: 'white' }}>Leaderboards</h1>
 			{topTenLoading ? (
-				<div style={{ height: '100vh', width: '100vw' }}>
+				<div>
 					<div
 						style={{
 							position: 'fixed',
@@ -64,7 +64,7 @@ const RS3Home = () => {
 						}}
 					>
 						<CircularProgress size={'10vw'} color="secondary" />
-						<p>Sorry, this one takes a few seconds...</p>
+						<p>Just a sec, updating all users...</p>
 					</div>
 				</div>
 			) : (
