@@ -4,6 +4,8 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const RS3Home = () => {
 	const myToast = useRef(null);
 	const showToast = (severityValue, summaryValue, detailValue) => {
@@ -18,8 +20,7 @@ const RS3Home = () => {
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
 	useEffect(() => {
-		fetch(`https://hidden-oasis-88699.herokuapp.com/users/topten`)
-			// fetch(`http://localhost:8000/users/topten`)
+		fetch(`${API_URL}/users/topten`)
 			.then((res) => res.json())
 			.then((res) => {
 				// console.log(res);

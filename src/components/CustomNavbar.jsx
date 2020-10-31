@@ -6,13 +6,16 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Logo from '../images/woodcutLogo.png';
 import { DateTime, Interval } from 'luxon';
+
+const API_URL = process.env.REACT_APP_API_URL;
+
 const CustomNavbar = () => {
 	const [name, updateName] = useState([]);
 	const [count, updateCount] = useState(0);
 
 	useEffect(() => {
 		// first, tries to fetch 20 activities with the good proxyurl
-		fetch('https://hidden-oasis-88699.herokuapp.com/users/playercount')
+		fetch(`${API_URL}/users/playercount`)
 			.then((res) => res.json())
 			.then((res) => {
 				updateCount(res.players);
@@ -49,7 +52,7 @@ const CustomNavbar = () => {
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="mr-auto">
 					<Nav.Link href="/rs3">Leaderboards</Nav.Link>
-					<Nav.Link href="/compare">Compare [beta]</Nav.Link>
+					<Nav.Link href="/compare">Compare</Nav.Link>
 					{/* <Nav.Link href="/osrs">Old School Runescape</Nav.Link>
 				<Nav.Link href="#about">About</Nav.Link> */}
 				</Nav>

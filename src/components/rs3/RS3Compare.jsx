@@ -6,6 +6,8 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import styled from 'styled-components';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const axios = require('axios');
 
 const RS3Compare = () => {
@@ -29,7 +31,7 @@ const RS3Compare = () => {
 		updateLoading(true);
 		const user1APICall = axios({
 			method: 'put',
-			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${user1}`,
+			url: `${API_URL}/users/delta/${user1}`,
 			data: {
 				username: user1,
 			},
@@ -40,7 +42,7 @@ const RS3Compare = () => {
 			.catch((err) => console.log(err));
 		const user2APICall = axios({
 			method: 'put',
-			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${user2}`,
+			url: `${API_URL}/users/delta/${user2}`,
 			data: {
 				username: user2,
 			},

@@ -3,6 +3,8 @@ import { Chart } from 'primereact/chart';
 import CalendarSelect from './CalendarSelect';
 const axios = require('axios');
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const basicOptions = {
 	maintainAspectRatio: false,
 	tooltips: {
@@ -59,7 +61,7 @@ const XPChart = (props) => {
 		axios({
 			method: 'get',
 			// url: `http://localhost:8000/users/daterange/${username}`,
-			url: `https://hidden-oasis-88699.herokuapp.com/users/daterange/${username}`,
+			url: `${API_URL}/users/daterange/${username}`,
 			headers: {},
 			params: {
 				startDate,

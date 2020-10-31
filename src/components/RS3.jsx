@@ -14,6 +14,8 @@ import { Button } from 'primereact/button';
 import styled from 'styled-components';
 import { TabView, TabPanel } from 'primereact/tabview';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const axios = require('axios');
 
 const RS3 = () => {
@@ -112,7 +114,7 @@ const RS3 = () => {
 		const username = player_name.split(' ').join('+').split('%20').join('+');
 		const gainsAPICall = axios({
 			method: 'put',
-			url: `https://hidden-oasis-88699.herokuapp.com/users/delta/${username}`,
+			url: `${API_URL}/users/delta/${username}`,
 			data: {
 				username: username,
 			},
@@ -164,9 +166,7 @@ const RS3 = () => {
 					updatedBadges.quests = res.questscomplete === 295;
 				}
 			});
-		const clanNameAPICall = fetch(
-			`https://hidden-oasis-88699.herokuapp.com/users/details/${username}`
-		)
+		const clanNameAPICall = fetch(`${API_URL}/users/details/${username}`)
 			.then((res) => res.json())
 			.then((res) => {
 				updateClanName(res[0].clan);
@@ -264,7 +264,7 @@ const RS3 = () => {
 								<TabPanel header="Stats">
 									<RS3Skills data={skillData} />
 								</TabPanel>
-								<TabPanel header="Chart [beta]">
+								<TabPanel header="Chart">
 									<XPChart player_name={player_name} />
 								</TabPanel>
 								<TabPanel header="Minigames">

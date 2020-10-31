@@ -3,6 +3,7 @@ import { calcVirtualLevel, skillIcon } from '../../Data';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
+
 const RS3Skills = (props) => {
 	const columnOptions = [
 		{ label: 'Week', value: 'week' },
