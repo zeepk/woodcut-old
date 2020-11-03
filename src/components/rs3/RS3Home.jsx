@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast';
+import { skillIcon, skillNameArray } from '../../Data';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const RS3Home = () => {
-	const myToast = useRef(null);
-	const showToast = (severityValue, summaryValue, detailValue) => {
-		myToast.current.show({
-			severity: severityValue,
-			summary: summaryValue,
-			detail: detailValue,
-		});
-	};
 	const [topTenData, updateTopTenData] = useState([]);
+	const [activities, updateActivities] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
@@ -26,31 +19,26 @@ const RS3Home = () => {
 				// console.log(res);
 				updateTopTenData(res);
 				updateTopTenLoading(false);
-				setTimeout(function () {
-					showToast(
-						'info',
-						"Gainz don't look right?",
-						'Try a quick page refresh!'
-					);
-				}, 3000);
+			})
+			.catch((err) => console.log(err));
+		fetch(`${API_URL}/users/recentactivities`)
+			.then((res) => res.json())
+			.then((res) => {
+				// console.log(res);
+				updateActivities(res.slice(0, 10));
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
-			<Toast
-				ref={myToast}
-				style={{
-					maxWidth: '90vw',
-					width: '300px',
-					maxHeight: '100px',
-					fontSize: '0.9rem',
-					life: 10000,
-				}}
-				position="top-left"
-			/>
 			<h1 style={{ color: 'white' }}>Leaderboards</h1>
+			<p style={{ color: 'white' }}>{`Updates every ~10 mins. Last update was ${
+				topTenData.createdDate
+					? new Date().getMinutes() -
+					  new Date(topTenData.createdDate).getMinutes()
+					: 'a few'
+			} minutes ago.`}</p>
 			{topTenLoading ? (
 				<div>
 					<div
@@ -71,8 +59,8 @@ const RS3Home = () => {
 			) : (
 				<div className="p-grid" style={{ margin: 0 }}>
 					<div
-						className="p-col-12"
-						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+						className="p-col-12 p-lg-4"
+						style={{ color: 'white', margin: '0 auto' }}
 					>
 						<h3>Day</h3>
 						<DataTable
@@ -106,7 +94,7 @@ const RS3Home = () => {
 							/>
 
 							<Column
-								header="Day Gain"
+								header="XP Gain"
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
@@ -122,8 +110,8 @@ const RS3Home = () => {
 						</DataTable>
 					</div>
 					<div
-						className="p-col-12"
-						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+						className="p-col-12 p-lg-4"
+						style={{ color: 'white', margin: '0 auto' }}
 					>
 						<h3>Week</h3>
 						<DataTable
@@ -157,7 +145,7 @@ const RS3Home = () => {
 							/>
 
 							<Column
-								header="Week Gain"
+								header="XP Gain"
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
 									return (
@@ -173,12 +161,12 @@ const RS3Home = () => {
 						</DataTable>
 					</div>
 					<div
-						className="p-col-12"
-						style={{ color: 'white', margin: '0 auto', width: '400px' }}
+						className="p-col-12 p-lg-4"
+						style={{ color: 'white', margin: '0 auto' }}
 					>
-						<h3>Month</h3>
+						<h3>Recent Activities</h3>
 						<DataTable
-							value={topTenData.month}
+							value={activities}
 							style={{
 								border: '2px solid silver',
 								borderRadius: '10px',
@@ -208,19 +196,28 @@ const RS3Home = () => {
 							/>
 
 							<Column
-								header="Month Gain"
+								header=""
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
-									return (
-										<div className="gainz">
-											{'+' +
-												rowData.xpgain
-													.toString()
-													.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-										</div>
-									);
+									return <div>{rowData.title.replace('000000XP', 'm xp')}</div>;
 								}}
 							/>
+							<Column
+								style={{ width: '35px', padding: 0 }}
+								field="code"
+								header=""
+								body={(rowData) => (
+									<div>
+										{rowData.title.includes('XP in')
+											? skillIcon(
+													skillNameArray.indexOf(
+														rowData.title.split(' ').reverse()[0]
+													)
+											  )
+											: ''}
+									</div>
+								)}
+							></Column>
 						</DataTable>
 					</div>
 				</div>
