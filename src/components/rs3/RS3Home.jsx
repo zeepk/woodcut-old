@@ -32,7 +32,7 @@ const RS3Home = () => {
 
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
-			<h1 style={{ color: 'white' }}>Leaderboards</h1>
+			<h1 style={{ color: 'white' }}>Happy DXP!</h1>
 			<p style={{ color: 'white' }}>{`Updates every ~10 mins. Last update was ${
 				topTenData.createdDate
 					? new Date().getMinutes() -

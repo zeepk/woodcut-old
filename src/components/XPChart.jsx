@@ -60,7 +60,6 @@ const XPChart = (props) => {
 	const updateChart = (startDate, endDate) => {
 		axios({
 			method: 'get',
-			// url: `http://localhost:8000/users/daterange/${username}`,
 			url: `${API_URL}/users/daterange/${username}`,
 			headers: {},
 			params: {
