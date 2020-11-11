@@ -308,3 +308,5 @@ export const calcSkillPercentage = (flag, data) => {
 			return 25;
 	}
 };
+
+export const activityKeywords = ['XP in', ' pet'];

@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { skillIcon, skillNameArray } from '../../Data';
+import { DateTime } from 'luxon';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import styled from 'styled-components';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -10,6 +12,13 @@ const RS3Home = () => {
 	const [topTenData, updateTopTenData] = useState([]);
 	const [activities, updateActivities] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
+	let minutesSinceUpdate = 'a few minutes';
+	if (topTenData.createdDate) {
+		const minutes = Math.floor(
+			(new Date() - new Date(topTenData.createdDate)) / 60000
+		);
+		minutesSinceUpdate = minutes > 1 ? `${minutes} minutes` : '1 minute';
+	}
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
 	useEffect(() => {
@@ -33,12 +42,9 @@ const RS3Home = () => {
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
 			<h1 style={{ color: 'white' }}>Happy DXP!</h1>
-			<p style={{ color: 'white' }}>{`Updates every ~10 mins. Last update was ${
-				topTenData.createdDate
-					? new Date().getMinutes() -
-					  new Date(topTenData.createdDate).getMinutes()
-					: 'a few'
-			} minutes ago.`}</p>
+			<p
+				style={{ color: 'white' }}
+			>{`Updates every ~10 mins. Last update was ${minutesSinceUpdate} ago.`}</p>
 			{topTenLoading ? (
 				<div>
 					<div
@@ -199,7 +205,21 @@ const RS3Home = () => {
 								header=""
 								style={{ textAlign: 'right' }}
 								body={(rowData) => {
-									return <div>{rowData.title.replace('000000XP', 'm xp')}</div>;
+									const activityDateTime = DateTime.fromISO(
+										new Date(rowData.activityDate).toISOString()
+									);
+									return (
+										<div>
+											<ActivityTitle>
+												{rowData.title.replace('000000XP', 'm xp')}
+											</ActivityTitle>
+											<ActivityDatetime>
+												{activityDateTime.toLocaleString(
+													DateTime.DATETIME_FULL
+												)}
+											</ActivityDatetime>
+										</div>
+									);
 								}}
 							/>
 							<Column
@@ -225,5 +245,14 @@ const RS3Home = () => {
 		</div>
 	);
 };
+
+const ActivityTitle = styled.p`
+	margin: 0;
+	font-size: 16px;
+`;
+const ActivityDatetime = styled.p`
+	margin: 0;
+	font-size: 10px;
+`;
 
 export default RS3Home;
