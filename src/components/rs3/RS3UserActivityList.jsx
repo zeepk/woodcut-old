@@ -19,7 +19,7 @@ const RS3UserActivityList = (props) => {
 			});
 	}, [props.player_name]);
 	if (activityData.error) {
-		return <p>Profile Private</p>;
+		return <p>No activities available</p>;
 	}
 	return (
 		<UserActivityList>
