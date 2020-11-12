@@ -3,7 +3,7 @@ import { rs3_data_array } from '../Data';
 import { useLocation } from 'react-router-dom';
 import XPChart from './XPChart';
 import RS3Skills from './rs3/RS3Skills';
-import RS3Activities from './rs3/RS3Activities';
+import RS3UserActivityList from './rs3/RS3UserActivityList';
 import RS3Minigames from './rs3/RS3Minigames';
 import RS3User from './rs3/RS3User';
 import RS3Avatar from './rs3/RS3Avatar';
@@ -235,7 +235,7 @@ const RS3 = () => {
 									<RS3User skills={skillData} badges={badges} />
 								</TabPanel>
 								<TabPanel header="Activities">
-									<RS3Activities player_name={player_name} />
+									<RS3UserActivityList player_name={player_name} />
 								</TabPanel>
 							</TabView>
 							<FormContainer
