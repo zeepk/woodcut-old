@@ -13,6 +13,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import styled from 'styled-components';
 import { TabView, TabPanel } from 'primereact/tabview';
+const { DateTime } = require('luxon');
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -20,12 +21,21 @@ const axios = require('axios');
 
 const RS3 = () => {
 	const [skillData, updateSkillData] = useState([]);
+	const [dxpData, updateDxpData] = useState([]);
 	const [skillHistory, updateSkillHistory] = useState({});
 	const [minigameData, updateMinigameData] = useState([]);
 	const [isError, updateError] = useState(false);
 	const [loading, updateLoading] = useState(true);
 	const [user2, updateUser2] = useState('');
 	const [clanName, updateClanName] = useState('');
+	const dxpEndDate =
+		new Date() >= new Date('11-16-2020')
+			? '11-16-2020'
+			: DateTime.utc()
+					.minus({ days: 1 })
+					.toLocaleString(DateTime.DATE_SHORT)
+					.split('/')
+					.join('-');
 	const [badges, updateBadges] = useState({
 		max: false,
 		maxTotal: false,
@@ -171,12 +181,20 @@ const RS3 = () => {
 			.then((res) => {
 				updateClanName(res[0].clan);
 			});
+		const dxpAPICall = fetch(
+			`${API_URL}/users/daterangegain/${username}?startDate=11-06-2020&endDate=${dxpEndDate}`
+		)
+			.then((res) => res.json())
+			.then((res) => {
+				res.rangeGains && updateDxpData(res.rangeGains);
+			});
 
 		Promise.all([
 			gainsAPICall,
 			statsAPICall,
 			activitiesAPICall,
 			clanNameAPICall,
+			dxpAPICall,
 		]).then(() => {
 			updateBadges(updatedBadges);
 			updateLoading(false);
@@ -262,7 +280,7 @@ const RS3 = () => {
 						<div className="p-col-12 p-md-8">
 							<TabView style={{ overflow: 'auto' }}>
 								<TabPanel header="Stats">
-									<RS3Skills data={skillData} />
+									<RS3Skills data={skillData} dxpData={dxpData} />
 								</TabPanel>
 								<TabPanel header="Chart">
 									<XPChart player_name={player_name} />

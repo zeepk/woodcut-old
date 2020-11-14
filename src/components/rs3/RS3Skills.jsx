@@ -17,6 +17,7 @@ const RS3Skills = (props) => {
 	);
 	const truncate = vw < 550;
 	const skillData = props.data;
+	const dxpData = props.dxpData;
 	return (
 		<div>
 			<DataTable
@@ -84,6 +85,22 @@ const RS3Skills = (props) => {
 						</div>
 					)}
 				></Column>
+				{dxpData[5] && (
+					<Column
+						style={{ textAlign: 'right' }}
+						header="DXP Gain"
+						sortable
+						body={(rowData) => (
+							<div
+								style={{ color: 'silver' }}
+								className={dxpData[rowData.id].gain > 0 ? 'gainz' : ''}
+							>
+								{`
+						+${dxpData[rowData.id].gain.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+							</div>
+						)}
+					></Column>
+				)}
 				<Column
 					style={{ textAlign: 'right' }}
 					field={duration}
@@ -102,10 +119,10 @@ const RS3Skills = (props) => {
 					body={(rowData) => (
 						<div
 							style={{ color: 'silver' }}
-							className={rowData[duration] > 0 ? 'gainz' : ''}
+							className={(rowData[duration] || 0) > 0 ? 'gainz' : ''}
 						>
 							{`
-						+${rowData[duration].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
+						+${(rowData[duration] || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}
 						</div>
 					)}
 				></Column>
