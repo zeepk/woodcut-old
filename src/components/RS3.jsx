@@ -7,7 +7,7 @@ import RS3UserActivityList from './rs3/RS3UserActivityList';
 import RS3Minigames from './rs3/RS3Minigames';
 import RS3User from './rs3/RS3User';
 import RS3Avatar from './rs3/RS3Avatar';
-import RS3Home from './rs3/RS3Home';
+import RS3Leaderboards from './rs3/RS3Leaderboards';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -126,7 +126,7 @@ const RS3 = () => {
 			.catch((err) => console.log(err));
 		// .finally();
 		const statsAPICall = fetch(
-			`${proxyurl}https://secure.runescape.com/m=hiscore/index_lite.ws?player=${player_name}`
+			`${proxyurl}https://secure.runescape.com/m=hiscore/index_lite.ws?player=${player_name}`,
 		)
 			.then((res) => res.json())
 			.then((res) => {
@@ -157,7 +157,7 @@ const RS3 = () => {
 			})
 			.catch((err) => console.log(err));
 		const activitiesAPICall = fetch(
-			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`
+			`${proxyurl}https://apps.runescape.com/runemetrics/profile/profile?user=${player_name}&activities=20`,
 		)
 			.then((res) => res.json())
 			.then((res) => {
@@ -173,7 +173,7 @@ const RS3 = () => {
 				updateClanName(res[0].clan);
 			});
 		const dxpAPICall = fetch(
-			`${API_URL}/users/daterangegain/${username}?startDate=11-06-2020&endDate=${dxpEndDate}`
+			`${API_URL}/users/daterangegain/${username}?startDate=11-06-2020&endDate=${dxpEndDate}`,
 		)
 			.then((res) => res.json())
 			.then((res) => {
@@ -217,7 +217,7 @@ const RS3 = () => {
 		);
 	} else {
 		if (player_name === '') {
-			return <RS3Home />;
+			return <RS3Leaderboards />;
 		} else if (isError) {
 			return (
 				<div style={{ height: '95vh', padding: '20px 0 0 0', color: 'white' }}>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-const RS3Activity = (props) => {
+const RS3UserActivity = (props) => {
 	const activityDateTime = DateTime.fromISO(
-		new Date(props.data.activityDate).toISOString()
+		new Date(props.data.activityDate).toISOString(),
 	);
 	return (
 		<div style={{ textAlign: 'left' }}>
@@ -22,4 +22,4 @@ const RS3Activity = (props) => {
 	);
 };
 
-export default RS3Activity;
+export default RS3UserActivity;

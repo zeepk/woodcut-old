@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import RS3Activity from './RS3Activity';
+import RS3UserActivity from './RS3UserActivity';
 import styled from 'styled-components';
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -10,7 +10,10 @@ const RS3UserActivityList = (props) => {
 
 	useEffect(() => {
 		fetch(
-			`${API_URL}/users/recentactivities/${props.player_name.replace(' ', '+')}`
+			`${API_URL}/users/recentactivities/${props.player_name.replace(
+				' ',
+				'+',
+			)}`,
 		)
 			.then((res) => res.json())
 			.then((res) => {
@@ -26,7 +29,7 @@ const RS3UserActivityList = (props) => {
 			<DataTable value={activityData}>
 				<Column
 					field="details"
-					body={(rowData) => <RS3Activity data={rowData} />}
+					body={(rowData) => <RS3UserActivity data={rowData} />}
 				></Column>
 			</DataTable>
 		</UserActivityList>

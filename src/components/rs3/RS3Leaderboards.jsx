@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import {
+	leaderboardTitle,
+	leaderboardActivitiesLength,
+} from '../../utils/constants';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RS3LeaderboardActivityList from './leaderboard/RS3LeaderboardActivityList';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const RS3Home = () => {
+const RS3Leaderboards = () => {
 	const [topTenData, updateTopTenData] = useState([]);
 	const [activities, updateActivities] = useState([]);
 	const [topTenLoading, updateTopTenLoading] = useState(true);
 	let minutesSinceUpdate = 'a few minutes';
 	if (topTenData.createdDate) {
 		const minutes = Math.floor(
-			(new Date() - new Date(topTenData.createdDate)) / 60000
+			(new Date() - new Date(topTenData.createdDate)) / 60000,
 		);
 		minutesSinceUpdate = minutes > 1 ? `${minutes} minutes` : '1 minute';
 	}
@@ -32,14 +36,14 @@ const RS3Home = () => {
 			.then((res) => res.json())
 			.then((res) => {
 				// console.log(res);
-				updateActivities(res.slice(0, 10));
+				updateActivities(res.slice(0, leaderboardActivitiesLength));
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
 	return (
 		<div style={{ minHeight: '95vh', backgroundColor: '#212121' }}>
-			<h1 style={{ color: 'white' }}>Happy DXP!</h1>
+			<h1 style={{ color: 'white' }}>{leaderboardTitle}</h1>
 			<p
 				style={{ color: 'white' }}
 			>{`Updates every ~10 mins. Last update was ${minutesSinceUpdate} ago.`}</p>
@@ -177,4 +181,4 @@ const RS3Home = () => {
 	);
 };
 
-export default RS3Home;
+export default RS3Leaderboards;

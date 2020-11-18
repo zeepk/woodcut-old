@@ -14,7 +14,8 @@ const RS3LeaderboardActivityList = (props) => {
 			style={{
 				border: '2px solid silver',
 				borderRadius: '10px',
-				maxWidth: '95vw',
+				maxHeight: '100vh',
+				overflow: 'auto',
 			}}
 		>
 			<Column
@@ -41,11 +42,13 @@ const RS3LeaderboardActivityList = (props) => {
 				style={{ textAlign: 'right' }}
 				body={(rowData) => {
 					const activityDateTime = DateTime.fromISO(
-						new Date(rowData.activityDate).toISOString()
+						new Date(rowData.activityDate).toISOString(),
 					);
+					const is200m = rowData.title.includes('200000000');
+					const is120 = rowData.title.includes('104000000');
 					return (
 						<div>
-							<ActivityTitle>
+							<ActivityTitle is120={is120} is200m={is200m}>
 								{rowData.title.replace('000000XP', 'm xp')}
 							</ActivityTitle>
 							<ActivityDatetime>
@@ -63,7 +66,7 @@ const RS3LeaderboardActivityList = (props) => {
 					<div>
 						{rowData.title.includes('XP in')
 							? skillIcon(
-									skillNameArray.indexOf(rowData.title.split(' ').reverse()[0])
+									skillNameArray.indexOf(rowData.title.split(' ').reverse()[0]),
 							  )
 							: ''}
 					</div>
@@ -76,6 +79,8 @@ const RS3LeaderboardActivityList = (props) => {
 const ActivityTitle = styled.p`
 	margin: 0;
 	font-size: 16px;
+	color: ${(props) =>
+		props.is120 ? 'gold' : (props) => (props.is200m ? 'cyan' : 'white')};
 `;
 const ActivityDatetime = styled.p`
 	margin: 0;
