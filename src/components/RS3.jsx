@@ -28,14 +28,7 @@ const RS3 = () => {
 	const [loading, updateLoading] = useState(true);
 	const [user2, updateUser2] = useState('');
 	const [clanName, updateClanName] = useState('');
-	const dxpEndDate =
-		new Date() >= new Date('11-16-2020')
-			? '11-16-2020'
-			: DateTime.utc()
-					.minus({ days: 1 })
-					.toLocaleString(DateTime.DATE_SHORT)
-					.split('/')
-					.join('-');
+	const dxpEndDate = '11-16-2020';
 	const [badges, updateBadges] = useState({
 		max: false,
 		maxTotal: false,
@@ -91,13 +84,11 @@ const RS3 = () => {
 			skillData[i].month = skillHistory.statRecords[0].stats[i][5];
 			skillData[i].year = skillHistory.statRecords[0].stats[i][6];
 		}
-		// console.log(skillData[0]);
 		for (i = 29; i < 59; i++) {
 			minigameData[i - 29].day = skillHistory.statRecords[0].stats[i][2];
 			minigameData[i - 29].week = skillHistory.statRecords[0].stats[i][3];
 			minigameData[i - 29].month = skillHistory.statRecords[0].stats[i][4];
 			minigameData[i - 29].year = skillHistory.statRecords[0].stats[i][5];
-			// minigameData[i - 29].delta = 8;
 		}
 	};
 	if (
