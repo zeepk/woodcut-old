@@ -14,7 +14,7 @@ const RS3LeaderboardActivityList = (props) => {
 			style={{
 				border: '2px solid silver',
 				borderRadius: '10px',
-				maxHeight: '100vh',
+				maxHeight: '80vh',
 				overflow: 'auto',
 			}}
 		>
@@ -42,7 +42,7 @@ const RS3LeaderboardActivityList = (props) => {
 				style={{ textAlign: 'right' }}
 				body={(rowData) => {
 					const activityDateTime = DateTime.fromISO(
-						new Date(rowData.activityDate).toISOString(),
+						new Date(rowData.activityDate).toISOString()
 					);
 					const is200m = rowData.title.includes('200000000');
 					const is120 = rowData.title.includes('104000000');
@@ -66,7 +66,7 @@ const RS3LeaderboardActivityList = (props) => {
 					<div>
 						{rowData.title.includes('XP in')
 							? skillIcon(
-									skillNameArray.indexOf(rowData.title.split(' ').reverse()[0]),
+									skillNameArray.indexOf(rowData.title.split(' ').reverse()[0])
 							  )
 							: ''}
 					</div>

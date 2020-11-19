@@ -17,7 +17,7 @@ const RS3Leaderboards = () => {
 	let minutesSinceUpdate = 'a few minutes';
 	if (topTenData.createdDate) {
 		const minutes = Math.floor(
-			(new Date() - new Date(topTenData.createdDate)) / 60000,
+			(new Date() - new Date(topTenData.createdDate)) / 60000
 		);
 		minutesSinceUpdate = minutes > 1 ? `${minutes} minutes` : '1 minute';
 	}
@@ -77,6 +77,7 @@ const RS3Leaderboards = () => {
 								border: '2px solid silver',
 								borderRadius: '10px',
 								maxWidth: '95vw',
+								maxHeight: '100vh',
 							}}
 						>
 							<Column
@@ -128,6 +129,7 @@ const RS3Leaderboards = () => {
 								border: '2px solid silver',
 								borderRadius: '10px',
 								maxWidth: '95vw',
+								maxHeight: '100vh',
 							}}
 						>
 							<Column
@@ -172,7 +174,7 @@ const RS3Leaderboards = () => {
 						className="p-col-12 p-lg-4"
 						style={{ color: 'white', margin: '0 auto' }}
 					>
-						<h3>Recent Activities</h3>
+						<h3>Recent Achievements</h3>
 						<RS3LeaderboardActivityList activities={activities} />
 					</div>
 				</div>
