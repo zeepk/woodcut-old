@@ -10,10 +10,10 @@ const RS3UserActivityList = (props) => {
 
 	useEffect(() => {
 		fetch(
-			`${API_URL}/users/recentactivities/${props.player_name.replace(
+			`${API_URL}/activities/recentactivities/${props.player_name.replace(
 				' ',
-				'+',
-			)}`,
+				'+'
+			)}`
 		)
 			.then((res) => res.json())
 			.then((res) => {

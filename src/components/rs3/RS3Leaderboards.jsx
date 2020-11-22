@@ -32,7 +32,7 @@ const RS3Leaderboards = () => {
 				updateTopTenLoading(false);
 			})
 			.catch((err) => console.log(err));
-		fetch(`${API_URL}/users/recentactivities`)
+		fetch(`${API_URL}/activities/recentactivities`)
 			.then((res) => res.json())
 			.then((res) => {
 				// console.log(res);
