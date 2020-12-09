@@ -44,11 +44,17 @@ const RS3LeaderboardActivityList = (props) => {
 					const activityDateTime = DateTime.fromISO(
 						new Date(rowData.activityDate).toISOString()
 					);
-					const is200m = rowData.title.includes('200000000');
-					const is120 = rowData.title.includes('104000000');
+					const isCyan =
+						rowData.title.includes('200000000') ||
+						rowData.title.includes('completionist');
+					const isGold =
+						rowData.title.includes('104000000') ||
+						rowData.title.includes('level 99') ||
+						rowData.title.includes('150000000') ||
+						rowData.title.includes('50000000');
 					return (
 						<div>
-							<ActivityTitle is120={is120} is200m={is200m}>
+							<ActivityTitle isGold={isGold} isCyan={isCyan}>
 								{rowData.title.replace('000000XP', 'm xp')}
 							</ActivityTitle>
 							<ActivityDatetime>
@@ -80,7 +86,7 @@ const ActivityTitle = styled.p`
 	margin: 0;
 	font-size: 16px;
 	color: ${(props) =>
-		props.is120 ? 'gold' : (props) => (props.is200m ? 'cyan' : 'white')};
+		props.isGold ? 'gold' : (props) => (props.isCyan ? 'cyan' : 'white')};
 `;
 const ActivityDatetime = styled.p`
 	margin: 0;
