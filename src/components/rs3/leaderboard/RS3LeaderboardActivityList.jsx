@@ -51,11 +51,14 @@ const RS3LeaderboardActivityList = (props) => {
 						rowData.title.includes('104000000') ||
 						rowData.title.includes('level 99') ||
 						rowData.title.includes('150000000') ||
+						rowData.title.includes(' pet') ||
 						rowData.title.includes('50000000');
 					return (
 						<div>
 							<ActivityTitle isGold={isGold} isCyan={isCyan}>
-								{rowData.title.replace('000000XP', 'm xp')}
+								{rowData.title
+									.replace('000000XP', 'm xp')
+									.replace('Levelled up', 'Level 99')}
 							</ActivityTitle>
 							<ActivityDatetime>
 								{activityDateTime.toLocaleString(DateTime.DATETIME_FULL)}
