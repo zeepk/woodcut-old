@@ -49,10 +49,11 @@ const RS3LeaderboardActivityList = (props) => {
 						rowData.title.includes('completionist');
 					const isGold =
 						rowData.title.includes('104000000') ||
-						rowData.title.includes('level 99') ||
+						rowData.title.includes('Levelled up') ||
 						rowData.title.includes('150000000') ||
 						rowData.title.includes(' pet') ||
-						rowData.title.includes('50000000');
+						rowData.title.includes('50000000') ||
+						rowData.title.includes('100000000');
 					return (
 						<div>
 							<ActivityTitle isGold={isGold} isCyan={isCyan}>
