@@ -29,7 +29,6 @@ const Clan = () => {
 		const membersCall = fetch(`${API_URL}/clans/members/?name=${clanName}`)
 			.then((res) => res.json())
 			.then((res) => {
-				console.log(res.members);
 				updateNames(res.names);
 				updateMemberCount(res.memberCount);
 				updateMembers(res.members);
