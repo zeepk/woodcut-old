@@ -3,6 +3,7 @@ import { calcVirtualLevel, skillIcon } from '../../Data';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
+import { showDxpData } from '../../utils/constants';
 
 const RS3Skills = (props) => {
 	const columnOptions = [
@@ -85,7 +86,7 @@ const RS3Skills = (props) => {
 						</div>
 					)}
 				></Column>
-				{dxpData[5] && (
+				{dxpData[5] && showDxpData && (
 					<Column
 						style={{ textAlign: 'right' }}
 						header="DXP Gain"

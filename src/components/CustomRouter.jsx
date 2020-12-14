@@ -2,6 +2,7 @@ import React from 'react';
 import RS3 from './RS3';
 import OSRS from './OSRS';
 import RS3Compare from './rs3/RS3Compare';
+import Clan from './rs3/clan/Clan';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -23,6 +24,9 @@ const CustomRouter = () => {
 					/>
 					<Route path="/rs3">
 						<RS3 />
+					</Route>
+					<Route path="/clan">
+						<Clan />
 					</Route>
 					<Route path="/compare">
 						<RS3Compare />

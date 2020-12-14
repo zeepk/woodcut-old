@@ -3,6 +3,8 @@ import Badge from './Badge';
 import RuneScoreLogo from '../../images/RuneScore.png';
 import SkillLogo from '../../images/1_overall.png';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Button } from 'primereact/button';
+
 const RS3Avatar = (props) => {
 	const player_name = props.player_name;
 	const [avatarLoading, updateAvatarLoading] = useState(true);
@@ -21,6 +23,15 @@ const RS3Avatar = (props) => {
 			badges.push(<Badge key={'5'} icon="max" />);
 		}
 	}
+
+	const handleClanClick = (e) => {
+		e.preventDefault();
+		window.location.href = `/clan/?name=${props.clanName
+			.split(' ')
+			.join('+')
+			.split('%20')
+			.join('+')}`;
+	};
 
 	return (
 		<div className="p-grid user-data" style={{ margin: '0 0 30px 0' }}>
@@ -47,16 +58,18 @@ const RS3Avatar = (props) => {
 				>
 					{player_name}
 				</h1>
-				<p
+				<Button
 					style={{
 						color: 'white',
 						textAlign: 'left',
 						fontFamily: 'RuneScape UF',
-						margin: 0,
+						margin: '0 10px 0 0',
+						background: 'transparent',
+						float: 'left',
 					}}
-				>
-					{props.clanName}
-				</p>
+					onClick={(e) => handleClanClick(e)}
+					label={props.clanName}
+				/>
 				<div style={{ textAlign: 'left' }}>
 					<img
 						src={RuneScoreLogo}
