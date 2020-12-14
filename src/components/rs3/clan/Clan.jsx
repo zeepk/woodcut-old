@@ -115,7 +115,7 @@ const Clan = () => {
 					<ClanName>{clanName}</ClanName>
 					<MemberCount>{memberCount} Members</MemberCount>
 					<Banner
-						src={`http://services.runescape.com/m=avatar-rs/${clanName
+						src={`https://services.runescape.com/m=avatar-rs/${clanName
 							.split(' ')
 							.join('+')}/clanmotif.png`}
 					/>
