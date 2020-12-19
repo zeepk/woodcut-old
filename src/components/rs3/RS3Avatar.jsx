@@ -66,6 +66,7 @@ const RS3Avatar = (props) => {
 						margin: '0 10px 0 0',
 						background: 'transparent',
 						float: 'left',
+						display: props.clanName ? '' : 'none',
 					}}
 					onClick={(e) => handleClanClick(e)}
 					label={props.clanName}

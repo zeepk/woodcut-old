@@ -59,7 +59,8 @@ const RS3LeaderboardActivityList = (props) => {
 							<ActivityTitle isGold={isGold} isCyan={isCyan}>
 								{rowData.title
 									.replace('000000XP', 'm xp')
-									.replace('Levelled up', 'Level 99')}
+									.replace('Levelled up', 'Level 99')
+									.replace('.', '')}
 							</ActivityTitle>
 							<ActivityDatetime>
 								{activityDateTime.toLocaleString(DateTime.DATETIME_FULL)}
@@ -74,9 +75,12 @@ const RS3LeaderboardActivityList = (props) => {
 				header=""
 				body={(rowData) => (
 					<div>
-						{rowData.title.includes('XP in')
+						{rowData.title.includes('XP in') ||
+						rowData.title.includes('Levelled up')
 							? skillIcon(
-									skillNameArray.indexOf(rowData.title.split(' ').reverse()[0])
+									skillNameArray.indexOf(
+										rowData.title.split(' ').reverse()[0].replace('.', '')
+									)
 							  )
 							: ''}
 					</div>

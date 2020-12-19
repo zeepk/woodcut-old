@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-// import { showDxpData } from '../../../utils/constants';
+import { clanBannerLoadingText } from '../../../utils/constants';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,9 +11,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 const Clan = () => {
 	const [memberCount, updateMemberCount] = useState(0);
 	const [members, updateMembers] = useState([]);
-	const [names, updateNames] = useState([]);
 	const [activities, updateActivities] = useState([]);
 	const [loading, updateLoading] = useState(true);
+	const [banner, updateBanner] = useState(false);
+
 	const rowHeight = '7vh';
 	const avatarHeight = '5vh';
 	const clanName =
@@ -26,12 +27,19 @@ const Clan = () => {
 			.join(' ')
 			.toLowerCase() || 'gainz squad';
 	useEffect(() => {
-		const membersCall = fetch(`${API_URL}/clans/members/?name=${clanName}`)
+		const clanCall = fetch(`${API_URL}/clans/?name=${clanName}`)
 			.then((res) => res.json())
 			.then((res) => {
-				updateNames(res.names);
-				updateMemberCount(res.memberCount);
-				updateMembers(res.members);
+				const clan = res.clan;
+				updateMemberCount(clan.memberCount);
+				updateMembers(
+					clan.members.map((member) => {
+						member.totalLevel = 0 - member.totalLevel;
+						member.totalXp = 0 - member.totalXp;
+						member.runeScore = 0 - member.runeScore;
+						return member;
+					})
+				);
 			});
 		const activitiesCall = fetch(
 			`${API_URL}/clans/activities/?name=${clanName}`
@@ -40,7 +48,7 @@ const Clan = () => {
 			.then((res) => {
 				updateActivities(res);
 			});
-		Promise.all([activitiesCall, membersCall]).then(() => {
+		Promise.all([activitiesCall, clanCall]).then(() => {
 			updateLoading(false);
 		});
 	}, [clanName]);
@@ -65,12 +73,12 @@ const Clan = () => {
 				<div className="p-col-12 p-lg-4">
 					<ColumnTitle>Gainz</ColumnTitle>
 					<DataTable
-						value={members}
+						value={members.sort((a, b) => b.dayGain - a.dayGain).slice(0, 30)}
 						style={{
 							border: '2px solid silver',
 							borderRadius: '10px',
-							maxWidth: '95vw',
-							maxHeight: '100vh',
+							maxHeight: '80vh',
+							overflow: 'auto',
 						}}
 					>
 						<Column
@@ -118,28 +126,74 @@ const Clan = () => {
 						src={`https://services.runescape.com/m=avatar-rs/${clanName
 							.split(' ')
 							.join('+')}/clanmotif.png`}
+						onLoad={() => updateBanner(true)}
 					/>
+					{!banner ? (
+						<div style={{ padding: '5px' }}>
+							<CircularProgress size={'80px'} color="secondary" />
+							<BannerLoadingText>{clanBannerLoadingText}</BannerLoadingText>
+						</div>
+					) : (
+						<div />
+					)}
 					<DataTable
-						value={names}
+						value={members}
 						style={{
 							border: '2px solid silver',
 							borderRadius: '10px',
 							maxWidth: '95vw',
-							maxHeight: '50vh',
+							maxHeight: '90vh',
+							height: 'auto',
 							overflow: 'auto',
 						}}
 					>
 						<Column
-							header="Member List"
+							header="Player"
 							style={{ textAlign: 'left' }}
-							field="name"
+							field="username"
 							body={(rowData) => (
-								<NameLink href={`/rs3/?${rowData.name}`}>
-									{rowData.name.split('+').join(' ')}
+								<NameLink href={`/rs3/?${rowData.username}`}>
+									{rowData.username.split('+').join(' ')}
 								</NameLink>
 							)}
 							sortable
 							filter
+						/>
+						<Column
+							header="Total Level"
+							style={{ textAlign: 'right' }}
+							field="totalLevel"
+							body={(rowData) =>
+								rowData.totalLevel
+									.toString()
+									.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+									.replace('-', '')
+							}
+							sortable
+						/>
+						<Column
+							header="Total XP"
+							style={{ textAlign: 'right' }}
+							field="totalXp"
+							body={(rowData) =>
+								rowData.totalXp
+									.toString()
+									.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+									.replace('-', '')
+							}
+							sortable
+						/>
+						<Column
+							header="Runescore"
+							style={{ textAlign: 'right' }}
+							field="runeScore"
+							body={(rowData) =>
+								rowData.runeScore
+									.toString()
+									.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+									.replace('-', '')
+							}
+							sortable
 						/>
 					</DataTable>
 				</div>
@@ -181,6 +235,11 @@ const Banner = styled.img`
 
 const ColumnTitle = styled.p`
 	font-size: 2rem;
+	text-align: center;
+`;
+
+const BannerLoadingText = styled.p`
+	font-size: 0.8rem;
 	text-align: center;
 `;
 
